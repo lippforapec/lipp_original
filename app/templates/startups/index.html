@@ -1,0 +1,9 @@
+{% if startups %}
+    <ul>
+    {% for startup in startups %}
+        <li><a href="{% url 'startup_show' startup.id %}">{{ startup.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Startups.</p>
+{% endif %}
