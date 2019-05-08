@@ -1,0 +1,26 @@
+{% extends 'startups/base.html' %}
+
+{% block css_libraries %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<h1>New post</h1>
+ <form method="POST" class="post-form">{% csrf_token %}
+     {{ form.as_p }}
+     <button type="submit" class="save btn btn-default">Save</button>
+ </form>
+{% endblock %}
+
+{% block js_libraries %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('.summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 100
+      });
+    });
+</script>
+{% endblock %}
