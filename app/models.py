@@ -1,5 +1,6 @@
 from django.db import models
 from jsonfield import JSONField
+from .validators import validate_timeline
 
 # Article Models
 class Article(models.Model):
@@ -33,8 +34,8 @@ class Startup(models.Model):
     solution = models.TextField()
     business_model = models.TextField()
     future = models.TextField()
-    raiseAmount = models.IntegerField(default=0)
-    timeline = JSONField(default=[])
+    raiseAmount = models.PositiveIntegerField(default=0)
+    timeline = JSONField(default=[],validators=[validate_timeline])
     location = models.CharField(max_length=50)
     summary = models.CharField(max_length=255)
     members = JSONField(default=[])
