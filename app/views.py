@@ -23,7 +23,7 @@ def startup_new(request):
         if form.is_valid():
             startup = form.save(commit=False)
             startup.user = request.user
-            startup.created_at = timezone.now()
+            #startup.created_at = timezone.now()
             startup.save()
             return redirect('project_detail', id=startup.id)
     else:
