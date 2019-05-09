@@ -178,7 +178,7 @@ button.more-btn {
   position: absolute;
   left: 15px;
 }
-.container-fluid:nth-child(odd) {
+#startup-show .container-fluid:nth-child(even) {
   background-color:rgba(245,237,239,0.6);
 }
 .container {
