@@ -1,5 +1,8 @@
 from django.db import models
 from jsonfield import JSONField
+from app.validators import validate_timeline, validate_members
+import operator
+import json
 
 # Article Models
 class Article(models.Model):
@@ -11,6 +14,7 @@ class Article(models.Model):
     category = models.PositiveSmallIntegerField(default=0)
     class Meta:
         ordering = ('created',)
+
 
 # Like Models
 class Like(models.Model):
@@ -33,13 +37,17 @@ class Startup(models.Model):
     solution = models.TextField()
     business_model = models.TextField()
     future = models.TextField()
-    raiseAmount = models.IntegerField(default=0)
-    timeline = JSONField(default=[])
+    raiseAmount = models.PositiveIntegerField(default=0)
+    timeline = JSONField(default=[],validators=[validate_timeline])
     location = models.CharField(max_length=50)
     summary = models.CharField(max_length=255)
-    members = JSONField(default=[])
+    members = JSONField(default=[],validators=[validate_members])
     team_desc = models.TextField()
-    #feedback = models.ListField()
+    def save(self, *args, **kwargs):
+        timeline_unordered = [dict(data) for data in self.timeline]
+        timeline_ordered = sorted(timeline_unordered, key=operator.itemgetter('date')) 
+        self.timeline = json.dumps(timeline_ordered)
+        super(Startup, self).save(*args, **kwargs)
 
 # Feedback Models
 class Feedback(models.Model):
