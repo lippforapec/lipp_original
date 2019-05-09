@@ -8,7 +8,7 @@ class TimelineSerializer(serializers.Serializer):
 
 class MembersSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=10)
-    career = serializers.CharField(max_length=200)
+    career = serializers.CharField(max_length=100)
 
 def validate_timeline(validated_data):
     serialized = TimelineSerializer(data=validated_data, many=True)
