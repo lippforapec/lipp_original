@@ -1,8 +1,16 @@
 from django.db import models
 from jsonfield import JSONField
+
+# validators
 from app.validators import validate_timeline, validate_members
+# for saving timelines
 import operator
 import json
+# import category constants 
+import app.categories as cate
+
+
+
 
 # Article Models
 class Article(models.Model):
@@ -30,7 +38,7 @@ class Startup(models.Model):
     name = models.CharField(max_length=50)
     product_name = models.CharField(max_length=50)
     state = models.PositiveSmallIntegerField(default=0)
-    category = models.PositiveSmallIntegerField(default=0)
+    category = models.PositiveSmallIntegerField(choices=cate.CATEGORIES,default=0)
     tags = JSONField(default=[])
     background = models.TextField()
     market = models.TextField()
