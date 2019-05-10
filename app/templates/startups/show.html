@@ -224,6 +224,7 @@ $("textarea.autosize").on('keydown keyup', function () {
 
 //menu transition js
 $(document).ready(function(){
+  $('body').scrollspy({ target: '#content-nav' });
   $(window).scroll(function(){
   	var scroll = $(window).scrollTop();
 	  if (scroll > 100) {

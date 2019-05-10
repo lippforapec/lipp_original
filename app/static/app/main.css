@@ -170,6 +170,7 @@ input.form-control, textarea.form-control, select.form-control {
 @media(max-width: 768px){
     .navbar {background-color: rgba(23,9,15, 1.0) !important; }
 }
+
 button.more-btn {
   border: none;
   border-radius: 100px;
@@ -199,6 +200,9 @@ button.more-btn {
 #content-nav a {
   color: white;
   text-decoration: none;
+}
+#content-nav .nav-link.active {
+  color: #df6e5c;
 }
 #content-title {
   position: absolute;
