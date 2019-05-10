@@ -74,7 +74,8 @@ class StartupForm(forms.Form):
         max_length = 500,
         widget = forms.Textarea(
             attrs = {
-                'rows': 3
+                'rows': 3,
+                'placeholder': 'Write what you do and build briefly.'
             }
         ),
         help_text = 'This will be shown on the first page. Please write your project name attractively so that VCs want to click.'
