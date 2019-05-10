@@ -6,6 +6,7 @@
       "name": "Lippers",
       "product_name": "Lipp",
       "tags": ["Techonology", "Startup", "Platform"],
+      "category": 24,
       "background": "We though this is the problem.",
       "market": "The market size is very big.",
       "solution": "So we made this platform.",
@@ -25,11 +26,12 @@
   },
   {
     "model": "app.startup",
-    "id": 1,
+    "id": 2,
     "fields": {
       "name": "Amazon",
       "product_name": "Amazon Go",
       "tags": ["Techonology", "IoT", "Commerce"],
+      "category": 7,
       "background": "We though this is the problem.",
       "market": "The market size is very big.",
       "solution": "So we made this platform.",
