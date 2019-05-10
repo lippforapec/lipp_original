@@ -1,3 +1,27 @@
+.m_wrap{
+    width:100%;
+}
+.dx {
+    overflow-y: hidden;
+    white-space: nowrap;
+    width: 100%;
+}
+#trending .dx::-webkit-scrollbar { width: 0 !important }
+.xc{
+    display:inline-block;
+    width:300px;
+    line-height:80px;
+    text-align:center;
+    margin-bottom:4px;
+}
+.xc .card-text {
+  white-space: normal;
+}
+
+
+
+
+
 /* global */
 body {
   margin: 0;
@@ -27,6 +51,9 @@ nav .logo {
 }
 .hide {
   display: none;
+}
+.color-coral {
+  color: #df6e5c !important;
 }
 .bg-coral {
   color: white;
@@ -192,6 +219,10 @@ button.more-btn {
   background-color: #df6e5c;
   color: #fff;
   margin: 5px 20px;
+  padding: 2px 5px;
+}
+.material-icons {
+  vertical-align: middle;
 }
 
 #content-nav {
@@ -226,6 +257,7 @@ button.more-btn {
 
 #startup-show #cover .material-icons {
   font-size: 40px;
+  color: white;
 }
 
 .container {
