@@ -26,10 +26,10 @@
           <a class="nav-link" href="{% url 'startup_index' %}">Start-ups</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">My start-up</a>
+          <a class="nav-link" href="{% url 'startup_show' id=1 %}">My start-up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Account</a>
+          <a class="nav-link" href="#">Login/Logout</a>
         </li>
       </ul>
     </div>
@@ -45,7 +45,6 @@
   <script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
   <script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
   <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
-
   {% block js_libraries %}
   {% endblock %}
 </body>

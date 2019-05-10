@@ -11,9 +11,9 @@ def main(request):
 
 def startup_index(request):
     context = {
-        'watching': Startup.objects.all(),
+        'watching': Startup.objects.all()[:3],
         'trending': Startup.objects.all(),
-        'techonology': Startup.objects.all(),
+        'technology': Startup.objects.all(),# filter(category=24),
     }
     return render(request, 'startups/index.html', context)
 
