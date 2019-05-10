@@ -1,8 +1,27 @@
 {% extends 'startups/base.html' %}
+{% load static %}
 {% load widget_tweaks %}
 
 {% block css_libraries %}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="{% static 'libraries/bootstrap-tagsinput/bootstrap-tagsinput.css' %}"/>
+<style>
+  .label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+  }
+  .label-info {
+    background-color: #5bc0de;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -241,8 +260,8 @@
 {% endblock %}
 
 {% block js_libraries %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.2/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<script src="{% static 'libraries/bootstrap-tagsinput/bootstrap-tagsinput.js'%}"></script>
 <script type="text/javascript">
   function readURL(input) {
       if (input.files && input.files[0]) {
@@ -267,6 +286,7 @@
         tabsize: 2,
         height: 100
       });
+      $("input").addClass("form-control");
     });
 </script>
 {% endblock %}
