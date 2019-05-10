@@ -1,5 +1,6 @@
 {% extends 'startups/base.html' %}
 {% load static %}
+
 {% block css_libraries %}
 <link rel="stylesheet" type="text/css" href="{% static 'libraries/timeline/timeline.css' %}">
 {% endblock %}
@@ -8,16 +9,24 @@
 <div id="startup-show">
   <!-- Cover Photo -->
   <div id="cover" class="position-relative overflow-hidden text-center bg-light">
-    <h1 class="vertical-middle-header">Umbrellabrella</h1>
+    <h1 class="vertical-middle-header">{{ startup.product_name }}</h1>
+    <div class="right-top">
+      <a href="{% url 'startup_edit' id=startup.id %}"><i class="material-icons">edit</i></a>
+    </div>
+    <div class="right-bottom">
+      <i class="material-icons">favorite_border</i>
+      <i class="material-icons">favorite</i>
+      <i class="material-icons">share</i>
+    </div>
   </div>
 
   <nav id="content-nav" class="nav justify-content-end">
     <div id="content-title" class="hide">
       <a class="navbar-brand" href="/">
-        <img src="https://uc.uxpin.com/files/976853/959924/Slice300dp-b58693.png" class="logo d-inline-block align-top" alt=""/>
+        <img src="{% static 'images/logo.png' %}" class="logo d-inline-block align-top" alt=""/>
         LIPP
       </a>
-      <a>Umbrella</a>
+      <a>{{ startup.product_name }}</a>
     </div>
 
     <li class="nav-item">
@@ -38,7 +47,7 @@
     <li class="nav-item">
       <a class="nav-link" href="#feedback">Feedback</a>
     </li>
-    <button class="btn btn-sm contact-btn">CONTACT</button>
+    <a href="mailto:supporters@email.com" class="btn btn-sm contact-btn">CONTACT</a>
   </nav>
 
   <div id="product" class="container-fluid">
@@ -46,9 +55,7 @@
       <h2 class="title">Product</h2>
       <div class="row justify-content-md-center">
         <div class="col-md-6 col-xs-12">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed eiusmod tempor incididunt labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-          </p>
+          <p>{{ startup.summary }}</p>
         </div>
         <div class="col-md-6 col-xs-12">
           <video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4s" controls width="100%" height="auto" />
@@ -63,15 +70,19 @@
       <div class="row justify-content-md-center">
         <div class="col-md-6 col-xs-12">
           <h3>Background/Problem</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed eiusmod tempor incididunt labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-          </p>
+          <p>{{ startup.background|safe }}</p>
         </div>
         <div class="col-md-6 col-xs-12">
           <h3>Solution</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed eiusmod tempor incididunt labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident. sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-          </p>
+          <p>{{ startup.solution|safe }}</p>
+        </div>
+        <div class="col-md-6 col-xs-12">
+          <h3>Market</h3>
+          <p>{{ startup.market|safe }}</p>
+        </div>
+        <div class="col-md-6 col-xs-12">
+          <h3>Future</h3>
+          <p>{{ startup.future|safe }}</p>
         </div>
       </div>
     </div>
@@ -84,31 +95,13 @@
         <div class="col-xs-12">
           <section class="timeline">
             <ul>
+              {% for event in startup.timeline %}
               <li>
                 <div>
-                  <time>1967</time> Aenean condimentum odio a bibendum rhoncus. Ut mauris felis, volutpat eget porta faucibus, euismod quis ante.
+                  <time>{{ event.date }}</time> {{ event.desc }}
                 </div>
               </li>
-              <li>
-                <div>
-                  <time>1977</time> Vestibulum porttitor lorem sed pharetra dignissim. Nulla maximus, dui a tristique iaculis, quam dolor convallis enim, non dignissim ligula ipsum a turpis.
-                </div>
-              </li>
-              <li>
-                <div>
-                  <time>1985</time> In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
-                </div>
-              </li>
-              <li>
-                <div>
-                  <time>2000</time> In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
-                </div>
-              </li>
-              <li>
-                <div>
-                  <time>2005</time> In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
-                </div>
-              </li>
+              {% endfor %}
             </ul>
           </section>
         </div>
@@ -123,38 +116,28 @@
         <table class="table table-borderless">
           <tr>
             <th scope="row">Name</th>
-            <td>Company name</td>
+            <td>{{ startup.name }}</td>
           </tr>
           <tr>
             <th scope="row">Location</th>
-            <td>South Korea</td>
+            <td>{{ startup.location }}</td>
           </tr>
           <tr>
             <th scope="row">Description</th>
-            <td>We have been working since 2018. We are good teammates!</td>
+            <td>{{ startup.team_desc }}</td>
           </tr>
         </table>
       </div>
       <div class="row justify-content-md-center">
         <div class="card-deck">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">CEO</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          {% for member in startup.members %}
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ member.position }}</h5>
+                <p class="card-text">{{ member.career|safe }}</p>
+              </div>
             </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">CTO</h5>
-              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">CDO</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -163,7 +146,7 @@
   <div id="fund" class="container-fluid">
     <div class="container">
         <h2 class="text-center">We are looking for</h2>
-        <h1 class="text-center">$400k</h1>
+        <h1 class="text-center">${{ startup.raiseAmount }}</h1>
     </div>
   </div>
 
@@ -212,32 +195,14 @@
           <div class="panel panel-default">
             <button class="feedback-answer-btn btn btn-sm" data-toggle="collapse" href="#answer1">Hide reply</button>
 
-            <h5 class="panel-title">Aria.j<span class="feedback-date">2019.04.14</span></h5>
+            <h5 class="panel-title"><i class="material-icons">face</i>Aria.j<span class="feedback-date">2019.04.14</span></h5>
             <p class="feedback-content">
               Blahblahahalhakahjlkajskljdklfjsal
             </p>
           </div>
 
-          <div id="answer1" class="panel-collapse collapse show feedback-answer">
-            <p class="panel-body">
-              Hi, this is the answer from CEO. blahahlakhjalksjdklf
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-10">
-        <div class="panel-group feedback-card">
-          <div class="panel panel-default">
-            <button class="feedback-answer-btn btn btn-sm" data-toggle="collapse" href="#answer2">Hide reply</button>
-
-            <h5 class="panel-title">Aria.j<span class="feedback-date">2019.04.14</span></h5>
-            <p class="feedback-content">
-              Blahblahahalhakahjlkajskljdklfjsal
-            </p>
-          </div>
-
-          <div id="answer2" class="panel-collapse collapse show feedback-answer">
+          <div id="answer1" class="m4panel-collapse collapse show feedback-answer">
+            <h5 class="ml-4 panel-title">Founder<span class="feedback-date">2019.04.14</span></h5>
             <p class="panel-body">
               Hi, this is the answer from CEO. blahahlakhjalksjdklf
             </p>

@@ -13,7 +13,7 @@ def startup_index(request):
     return render(request, 'startups/index.html', context)
 
 def startup_show(request, id):
-    context = { 'startup': list(filter(lambda s: s['id'] == id, data)) }
+    context = { 'startup': Startup.objects.filter(id = id).first() }
     return render(request, 'startups/show.html', context)
 
 # form: https://tutorial.djangogirls.org/ko/django_forms/

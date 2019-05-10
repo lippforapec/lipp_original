@@ -21,7 +21,7 @@ class Like(models.Model):
 
 # Startup Models
 class Startup(models.Model):
-    user = models.ForeignKey('auth.User', related_name = "startups", on_delete=models.CASCADE)
+    # user = models.ForeignKey('auth.User', related_name = "startups", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=50)
     product_name = models.CharField(max_length=50)

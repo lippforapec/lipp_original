@@ -1,0 +1,52 @@
+[
+  {
+    "model": "app.startup",
+    "id": 1,
+    "fields": {
+      "name": "Lippers",
+      "product_name": "Lipp",
+      "tags": ["Techonology", "Startup", "Platform"],
+      "background": "We though this is the problem.",
+      "market": "The market size is very big.",
+      "solution": "So we made this platform.",
+      "business_model": "No BM yet",
+      "future": "Supporting entroprenuers to build better portfolio",
+      "raiseAmount": 2000000,
+      "timeline": [
+        {"date": "2019.04.01", "desc": "We started brainstorming"},
+        {"date": "2019.05.01", "desc": "We started developing"}
+      ],
+      "location": "South Korea",
+      "summary": "This is a blind pitching platform make focus only on the product, not their sex.",
+      "members": [{"name": "aria", "position": "founder", "career": "Worked at kakao"}, {"name": "Hyerim", "position": "founder", "career": "Worked at kakao"}],
+      "team_desc": "best teammates ever!",
+      "created_at": "2019-05-09 00:00:00"
+    }
+  },
+  {
+    "model": "app.startup",
+    "id": 1,
+    "fields": {
+      "name": "Amazon",
+      "product_name": "Amazon Go",
+      "tags": ["Techonology", "IoT", "Commerce"],
+      "background": "We though this is the problem.",
+      "market": "The market size is very big.",
+      "solution": "So we made this platform.",
+      "business_model": "No BM yet",
+      "future": "Supporting entroprenuers to build better portfolio",
+      "raiseAmount": 2000000,
+      "timeline": [
+        {"date": "2019.04.01", "desc": "We started brainstorming"},
+        {"date": "2019.05.01", "desc": "We started developing"},
+        {"date": "2019.06.01", "desc": "We will contract a store for the test-bed."},
+        {"date": "2019.06.10", "desc": "CBT"}
+      ],
+      "location": "South Korea",
+      "summary": "This is a blind pitching platform make focus only on the product, not their sex.",
+      "members": [{"name": "aria", "position": "founder", "career": "- Worked at kakao<br/>- Worked at kakao2"}, {"name": "Hyerim", "position": "founder", "career": "Worked at kakao"}],
+      "team_desc": "best teammates ever!",
+      "created_at": "2019-05-09 00:00:00"
+    }
+  }
+]
