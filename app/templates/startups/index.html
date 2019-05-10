@@ -1,5 +1,5 @@
 {% extends 'startups/base.html' %}
-
+{% load static %}
 {% block content %}
 <div id="index-cover" class="position-relative overflow-hidden text-center bg-light">
   <div>
@@ -15,44 +15,20 @@
       <h2 class="title">Watching</h2>
       <div class="row justify-content-md-center">
         <div class="card-deck">
-          <div class="card">
-            <img class="card-img-top" src="cover.jpeg" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title"><a class="startup-link" href="show.html">From Smart Farm to Self Gardening!</a></h5>
-              <p class="card-text"><a class="startup-link" href="show.html">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</a></p>
-              <div class="tags">
-                <span class="badge badge-pill badge-sand">#IoT</span>
-                <span class="badge badge-pill badge-sand">#Technology</span>
-                <span class="badge badge-pill badge-sand">#Bio</span>
+          {% for wc in watching %}
+            <div class="card">
+              <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
+              <div class="card-body">
+                <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
+                <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary }}</a></p>
+                <div class="tags">
+                  <span class="badge badge-pill badge-sand">#IoT</span>
+                  <span class="badge badge-pill badge-sand">#Technology</span>
+                  <span class="badge badge-pill badge-sand">#Bio</span>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div class="card">
-            <img class="card-img-top" src="cover.jpeg" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title"><a class="startup-link" href="show.html">From Smart Farm to Self Gardening!</a></h5>
-              <p class="card-text"><a class="startup-link" href="show.html">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</a></p>
-              <div class="tags">
-                <span class="badge badge-pill badge-sand">#IoT</span>
-                <span class="badge badge-pill badge-sand">#Technology</span>
-                <span class="badge badge-pill badge-sand">#Bio</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <img class="card-img-top" src="cover.jpeg" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title"><a class="startup-link" href="show.html">From Smart Farm to Self Gardening!</a></h5>
-              <p class="card-text"><a class="startup-link" href="show.html">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</a></p>
-              <div class="tags">
-                <span class="badge badge-pill badge-sand">#IoT</span>
-                <span class="badge badge-pill badge-sand">#Technology</span>
-                <span class="badge badge-pill badge-sand">#Bio</span>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
