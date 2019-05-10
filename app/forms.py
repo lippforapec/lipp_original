@@ -1,5 +1,7 @@
 from django import forms
 from jsonfield import JSONField
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 from .models import Startup
 
 class SimpleStartupForm(forms.ModelForm):
