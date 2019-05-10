@@ -5,14 +5,15 @@
   <title>LIPP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   {% block css_libraries %}
   {% endblock %}
   <link rel="stylesheet" type="text/css" href="{% static 'app/main.css' %}">
 </head>
 <body>
   <nav class="navbar sticky-top navbar-expand-lg bg-fade navbar-dark">
-    <a class="navbar-brand" href="{% url 'startup_index' %}">
+    <a class="navbar-brand" href="{% url 'home' %}">
       <img src="{% static 'images/logo.png' %}" class="logo d-inline-block align-top" alt=""/>
       LIPP
     </a>
@@ -37,8 +38,14 @@
   {% block content %}
   {% endblock %}
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <footer>
+    <div class="footer-copyright text-center py-3">© 2019 Copyright: Aree, Hyerim
+    </div>
+  </footer>
+  <script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
+  <script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
+  <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
+
   {% block js_libraries %}
   {% endblock %}
 </body>
