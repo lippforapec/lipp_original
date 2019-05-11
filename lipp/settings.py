@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from . import postgres_config
+from .setting import postgres_config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -78,6 +78,15 @@ WSGI_APPLICATION = 'lipp.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'lipp',
+        'USER': 'dbmasteruser',
+        'PASSWORD': 'testpassword',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+    ,
+    'production': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'lipp',
         'USER': postgres_config.USERNAME,

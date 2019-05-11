@@ -46,3 +46,15 @@ CATEGORIES = (
         (45, 'Travel and Tourism'),
         (46, 'Video')
     )
+
+
+TOPICS = (
+    ('background','market problem')
+    ,('market','market size')
+    ,('solution','market solution')
+    ,('business_model','market business models')
+    ,('future','market future')
+    , ('investment','market investment')
+)
+
+NEWS_TOPICS = (('news','market investment'),)

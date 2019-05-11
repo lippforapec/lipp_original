@@ -1,7 +1,5 @@
 #mport utils
-
 from contextlib import closing
-
 from django.db import connection
 from django.utils import timezone
 import requests
@@ -9,12 +7,15 @@ from bs4 import BeautifulSoup
 import time
 import psycopg2
 import os
-import categories 
 import itertools
 import json
 from datetime import datetime
 from django.conf import settings
-import postgres_config
+import setting.postgres_config as postgres_config
+
+import sys
+sys.path.insert(0, '../app')
+import categories
 
 settings.configure()
 

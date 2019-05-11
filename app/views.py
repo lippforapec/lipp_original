@@ -1,20 +1,11 @@
-<<<<<<< HEAD
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-=======
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
->>>>>>> 6fe9bec7cc0be2c0ae2e54ef251c840ddd63e469
+from django.http import HttpResponse, JsonResponse
 from django.views import generic
 from django.forms.models import model_to_dict
 
-<<<<<<< HEAD
 from .forms import StartupForm
-from .models import Search
-=======
 from .forms import StartupForm, SimpleStartupForm
-from .models import Startup
->>>>>>> 6fe9bec7cc0be2c0ae2e54ef251c840ddd63e469
+from .models import Startup, Search
 
 def main(request):
     return render(request, 'main.html')
@@ -32,12 +23,7 @@ def startup_search_results(request):
 
 
 def startup_show(request, id):
-<<<<<<< HEAD
-    context = { 'startup': list(filter(lambda s: s['id'] == id, data)) }
-    print(context)
-=======
     context = { 'startup': Startup.objects.filter(id = id).first() }
->>>>>>> 6fe9bec7cc0be2c0ae2e54ef251c840ddd63e469
     return render(request, 'startups/show.html', context)
 
 # form: https://tutorial.djangogirls.org/ko/django_forms/
@@ -49,11 +35,7 @@ def startup_new(request):
             startup.user = request.user
             #startup.created_at = timezone.now()
             startup.save()
-<<<<<<< HEAD
-            r#eturn redirect('project_detail', id=startup.id)
-=======
             return redirect('startup_show', id=startup.id)
->>>>>>> 6fe9bec7cc0be2c0ae2e54ef251c840ddd63e469
     else:
         form = StartupForm()
     return render(request, 'startups/new.html', {'form': form })
