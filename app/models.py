@@ -26,10 +26,11 @@ class Like(models.Model):
 class Startup(models.Model):
     # user = models.ForeignKey('auth.User', related_name = "startups", on_delete=models.CASCADE)
     cover_photo = models.ImageField(upload_to='images/',null=True)
-    pitching_video_link = models.CharField(max_length=500,null=True)
+    pitching_video_link = models.URLField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     name = models.CharField(default="",max_length=50)
     product_name = models.CharField(default="",max_length=50)
+    product_description = models.TextField()
     state = models.PositiveSmallIntegerField(default=0)
     category = models.PositiveSmallIntegerField(choices=cate.CATEGORIES,default=0)
     tags = ArrayField(models.CharField(max_length=100),blank=True,null=True)
@@ -39,12 +40,15 @@ class Startup(models.Model):
     business_model = models.TextField(default="")
     future = models.TextField(default="")
     raiseAmount = models.PositiveIntegerField(default=0)
-    timeline = JSONField(default=dict,validators=[validate_timeline])
+    # TODO : CHANGE VALIDATORS OF ARRAY : validators=[validate_timeline]
+    timeline = ArrayField(JSONField(default=dict),blank=True,null=True)
     location = models.CharField(default="",max_length=50)
     summary = models.CharField(default="",max_length=255)
-    members = JSONField(default=dict,validators=[validate_members])
+    # TODO : ,validators=[validate_members]
+    members = ArrayField(JSONField(default=dict),blank=True,null=True)
     team_desc = models.TextField(default="")
     def save(self, *args, **kwargs):
+        # TODO : CHECK IT FOR ARRAY FIELD
         timeline_unordered = [dict(data) for data in self.timeline]
         timeline_ordered = sorted(timeline_unordered, key=operator.itemgetter('date')) 
         self.timeline = timeline_ordered
