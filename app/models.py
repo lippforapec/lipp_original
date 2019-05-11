@@ -41,11 +41,11 @@ class Startup(models.Model):
     future = models.TextField(default="")
     raiseAmount = models.PositiveIntegerField(default=0)
     # TODO : CHANGE VALIDATORS OF ARRAY : validators=[validate_timeline]
-    timeline = ArrayField(JSONField(default=dict),blank=True,null=True)
+    timeline = ArrayField(JSONField(default=dict),validators=[validate_timeline],blank=True,null=True)
     location = models.CharField(default="",max_length=50)
     summary = models.CharField(default="",max_length=255)
     # TODO : ,validators=[validate_members]
-    members = ArrayField(JSONField(default=dict),blank=True,null=True)
+    members = ArrayField(JSONField(default=dict),validators=[validate_members],blank=True,null=True)
     team_desc = models.TextField(default="")
     def save(self, *args, **kwargs):
         # TODO : CHECK IT FOR ARRAY FIELD
