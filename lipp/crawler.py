@@ -11,7 +11,7 @@ import itertools
 import json
 from datetime import datetime
 from django.conf import settings
-import setting.postgres_config as postgres_config
+import config.postgres_config as postgres_config
 
 import sys
 sys.path.insert(0, '../app')
@@ -19,13 +19,23 @@ import categories
 
 settings.configure()
 
+#settings.DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'lipp',
+#        'USER': postgres_config.USERNAME,
+#        'PASSWORD': postgres_config.PASSWORD,
+#        'HOST': postgres_config.ENDPOINT,
+#        'PORT': '5432',
+#    }
+#}
 settings.DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'lipp',
-        'USER': postgres_config.USERNAME,
-        'PASSWORD': postgres_config.PASSWORD,
-        'HOST': postgres_config.ENDPOINT,
+        'USER': 'dbmasteruser',
+        'PASSWORD': 'testpassword',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

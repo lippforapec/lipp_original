@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Article, Like, Startup, Feedback
+from .models import Like, Startup, Feedback, Search
 # Register your models here.
-admin.site.register(Article)
 admin.site.register(Startup)
+admin.site.register(Like)
+admin.site.register(Search)
+admin.site.register(Feedback)

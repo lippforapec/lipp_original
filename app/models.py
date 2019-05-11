@@ -11,20 +11,17 @@ import app.categories as cate
 
 
 
-
-
-
-
 # Like Models
 class Like(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    startup = models.ForeignKey('Startup', on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', related_name = "user_like", on_delete=models.CASCADE)
+    startup = models.ForeignKey('Startup', related_name = "startup_like", on_delete=models.CASCADE)
+    liked = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
 # Startup Models
 class Startup(models.Model):
-    #user = models.ForeignKey('auth.User', related_name = "startups", on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', related_name = "startups", on_delete=models.CASCADE)
     cover_photo = models.ImageField(upload_to='images/',null=True)
     pitching_video_link = models.URLField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -56,11 +53,13 @@ class Feedback(models.Model):
     user = models.ForeignKey('auth.User', related_name = "feedbacks", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     feedback =  models.TextField()
-    startup = models.ForeignKey('Startup', on_delete=models.CASCADE, default=0)
+    startup = models.ForeignKey('Startup', related_name = "startup_feedbacks",  on_delete=models.CASCADE, default=0)
     reply = models.TextField()
+    reply_at = models.DateTimeField(auto_now=True)
 
 
 # Article Models
+"""
 class Article(models.Model):
     created_at =  models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=200)
@@ -70,11 +69,12 @@ class Article(models.Model):
     category = models.PositiveSmallIntegerField(default=0)
     class Meta:
         ordering = ('created_at',)
+"""
 
 # Google Results Models
 class Search(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    results = JSONField(default=dict)
+    results = JSONField(default=list)
     query = models.CharField(max_length=100,default="")
     category = models.PositiveSmallIntegerField(null=True)
     topic = models.CharField(max_length=50)
