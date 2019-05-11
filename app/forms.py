@@ -1,8 +1,16 @@
 from django import forms
+from jsonfield import JSONField
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
-
 from .models import Startup
+import app.categories as cate
+
+class SimpleStartupForm(forms.ModelForm):
+    class Meta:
+        model = Startup
+        fields = ('name', 'location', 'raiseAmount', 'product_name', 'category', 'tags', 'summary')
+        # 'background','market', 'solution', 'business_model', 'future', 'raiseAmount',
+        # 'timeline', 'location', 'summary', 'members', 'team_desc')
 
 class StartupForm(forms.Form):
     name = forms.CharField(
@@ -35,6 +43,17 @@ class StartupForm(forms.Form):
         help_text = 'This will be shown in the detail page of your project.'
     )
 
+    tags = forms.CharField(
+        max_length = 100,
+        widget = forms.TextInput(
+            attrs = {
+                'id': 'tags',
+                'data-role': 'tagsinput',
+                'value': 'startup,'
+            }
+        ),
+        help_text = 'Written tags will be used to crawl relative articles for the information and help you to writing a better portfolio.'
+    )
 
     product_name = forms.CharField(
         max_length = 30,
@@ -46,28 +65,20 @@ class StartupForm(forms.Form):
         help_text = 'This will be shown on the first page. Please write your project name attractively so that VCs want to click.'
     )
 
-    CATEGORIES = (('1', 'Technology'),('2', 'Bio'),)
     category = forms.ChoiceField(
-        choices=CATEGORIES,
-        help_text='This will decide where your project is shown.'
+        choices = cate.CATEGORIES,
+        help_text = 'This will decide where your project is shown.'
     )
 
     summary = forms.CharField(
         max_length = 500,
         widget = forms.Textarea(
             attrs = {
-                'rows': 3
+                'rows': 3,
+                'placeholder': 'Write what you do and build briefly.'
             }
         ),
         help_text = 'This will be shown on the first page. Please write your project name attractively so that VCs want to click.'
     )
 
     cover_photo = forms.FileField()
-
-    # class Meta:
-    #     model = Startup
-    #     fields = ('name', 'product_name', 'category', 'tags', 'background',
-    #     'market', 'solution', 'business_model', 'future', 'raiseAmount',
-    #     'timeline', 'location', 'summary', 'members', 'team_desc')
-
-        

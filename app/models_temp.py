@@ -6,7 +6,7 @@ from app.validators import validate_timeline, validate_members
 # for saving timelines
 import operator
 import json
-# import category constants 
+# import category constants
 import app.categories as cate
 
 
@@ -24,10 +24,18 @@ class Like(models.Model):
 
 # Startup Models
 class Startup(models.Model):
-    user = models.ForeignKey('auth.User', related_name = "startups", on_delete=models.CASCADE)
+    # user = models.ForeignKey('auth.User', related_name = "startups", on_delete=models.CASCADE)
+    cover_photo = models.ImageField(upload_to='images/')
+    pitching_video_link = models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
+<<<<<<< HEAD
     name = models.CharField(default="",max_length=50)
     product_name = models.CharField(default="",max_length=50)
+=======
+    name = models.CharField(max_length=50)
+    product_name = models.CharField(max_length=50)
+    product_description = models.TextField()
+>>>>>>> 6fe9bec7cc0be2c0ae2e54ef251c840ddd63e469
     state = models.PositiveSmallIntegerField(default=0)
     category = models.PositiveSmallIntegerField(choices=cate.CATEGORIES,default=0)
     tags = ArrayField(models.CharField(max_length=100),blank=True,null=True)
@@ -44,8 +52,13 @@ class Startup(models.Model):
     team_desc = models.TextField(default="")
     def save(self, *args, **kwargs):
         timeline_unordered = [dict(data) for data in self.timeline]
+<<<<<<< HEAD
         timeline_ordered = sorted(timeline_unordered, key=operator.itemgetter('date')) 
         self.timeline = timeline_ordered
+=======
+        timeline_ordered = sorted(timeline_unordered, key=operator.itemgetter('date'))
+        self.timeline = json.dumps(timeline_ordered)
+>>>>>>> 6fe9bec7cc0be2c0ae2e54ef251c840ddd63e469
         super(Startup, self).save(*args, **kwargs)
 
 # Feedback Models
