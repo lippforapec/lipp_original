@@ -6,7 +6,7 @@ from app.validators import validate_timeline, validate_members
 # for saving timelines
 import operator
 import json
-# import category constants 
+# import category constants
 import app.categories as cate
 
 
@@ -34,9 +34,12 @@ class Like(models.Model):
 # Startup Models
 class Startup(models.Model):
     # user = models.ForeignKey('auth.User', related_name = "startups", on_delete=models.CASCADE)
+    cover_photo = models.ImageField(upload_to='images/')
+    pitching_video_link = models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=50)
     product_name = models.CharField(max_length=50)
+    product_description = models.TextField()
     state = models.PositiveSmallIntegerField(default=0)
     category = models.PositiveSmallIntegerField(choices=cate.CATEGORIES,default=0)
     tags = JSONField(default=[])
@@ -53,7 +56,7 @@ class Startup(models.Model):
     team_desc = models.TextField()
     def save(self, *args, **kwargs):
         timeline_unordered = [dict(data) for data in self.timeline]
-        timeline_ordered = sorted(timeline_unordered, key=operator.itemgetter('date')) 
+        timeline_ordered = sorted(timeline_unordered, key=operator.itemgetter('date'))
         self.timeline = json.dumps(timeline_ordered)
         super(Startup, self).save(*args, **kwargs)
 

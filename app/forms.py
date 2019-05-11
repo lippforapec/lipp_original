@@ -3,6 +3,7 @@ from jsonfield import JSONField
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from .models import Startup
+import app.categories as cate
 
 class SimpleStartupForm(forms.ModelForm):
     class Meta:
@@ -64,17 +65,17 @@ class StartupForm(forms.Form):
         help_text = 'This will be shown on the first page. Please write your project name attractively so that VCs want to click.'
     )
 
-    CATEGORIES = (('1', 'Technology'),('2', 'Bio'),)
     category = forms.ChoiceField(
-        choices=CATEGORIES,
-        help_text='This will decide where your project is shown.'
+        choices = cate.CATEGORIES,
+        help_text = 'This will decide where your project is shown.'
     )
 
     summary = forms.CharField(
         max_length = 500,
         widget = forms.Textarea(
             attrs = {
-                'rows': 3
+                'rows': 3,
+                'placeholder': 'Write what you do and build briefly.'
             }
         ),
         help_text = 'This will be shown on the first page. Please write your project name attractively so that VCs want to click.'

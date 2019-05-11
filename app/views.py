@@ -33,7 +33,7 @@ def startup_new(request):
             return redirect('startup_show', id=startup.id)
     else:
         form = StartupForm()
-    return render(request, 'startups/new.html', {'form': form})
+    return render(request, 'startups/new.html', {'form': form })
 
 def startup_edit(request, id):
     startup = Startup.objects.get(id = id)
