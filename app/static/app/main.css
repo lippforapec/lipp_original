@@ -10,6 +10,18 @@ body {
   z-index: -1;
   -webkit-animation: spin 5s infinite linear;
 }
+.navbar-brand {
+  font-family: 'Pacifico', cursive;
+  /* font-family: 'Lobster', cursive; */
+}
+.lipp-header {
+  /* font-family: 'Lobster', cursive; */
+  font-family: 'Pacifico', cursive;
+  font-size: 200px;
+  margin-left: 50px;
+  margin-top: 30px;
+  /* text-align: center; */
+}
 @-webkit-keyframes spin {
   0%  {
     -webkit-transform: rotateY(0deg);

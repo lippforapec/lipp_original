@@ -5,8 +5,9 @@
   <title>LIPP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
-  <link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'libraries/bootstrap@4/bootstrap.min.css' %}"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico" rel="stylesheet"/>
   {% block css_libraries %}
   {% endblock %}
   <link rel="stylesheet" type="text/css" href="{% static 'app/main.css' %}">
@@ -15,7 +16,7 @@
   <nav class="navbar sticky-top navbar-expand-lg bg-fade navbar-dark">
     <a class="navbar-brand" href="{% url 'home' %}">
       <img src="{% static 'images/logo.png' %}" class="logo d-inline-block align-top" alt=""/>
-      LIPP
+      Lipp
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -42,9 +43,9 @@
     <div class="footer-copyright text-center py-3">© 2019 Copyright: Aree, Hyerim
     </div>
   </footer>
-  <script src='//unpkg.com/jquery@3/dist/jquery.min.js'></script>
-  <script src='//unpkg.com/popper.js@1/dist/umd/popper.min.js'></script>
-  <script src='//unpkg.com/bootstrap@4/dist/js/bootstrap.min.js'></script>
+  <script src="{% static 'libraries/jquery@3/jquery.min.js' %}"></script>
+  <script src="{% static 'libraries/popper.min.js' %}"></script>
+  <script src="{% static 'libraries/bootstrap@4/bootstrap.min.js' %}"></script>
   <script>
   String.prototype.times = function(n) {
       return Array.prototype.join.call({length: n+1}, this);
