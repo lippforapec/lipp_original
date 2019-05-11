@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block css_libraries %}
-<link rel="stylesheet" href="//unpkg.com/bootstrap@4/dist/css/bootstrap.min.css"/>
 {% endblock %}
 
 {% block content %}
@@ -10,8 +9,7 @@
   <div class="bg-lipp" style="height: 700px">
     <div class="container">
 
-      <h2>LIPP</h2>
-      <span class="title-desc">Tell us about your product working on or have been servicing and upload your pitching video and get more chance to take an investment.</span>
+      <h2 class="lipp-header">Lipp</h2>
     </div>
   </div>
 </div>
@@ -38,5 +36,5 @@
 {% endblock %}
 
 {% block js_libraries %}
-<script src="https://unpkg.com/@glidejs/glide@3.3.0/dist/glide.js"></script>
+<script src="{% static 'libaries/glide@3.3.0/glide.js' %}"></script>
 {% endblock %}
