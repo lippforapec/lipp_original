@@ -320,7 +320,7 @@
               <textarea class="form-control" id="tl-desc" rows="3"></textarea>
 
               <div class="mt-5 text-center">
-                <button class="btn bg-coral add-timeline-btn"><i class="material-icons">add</i>&nbsp;Add a timeline</button>
+                <button type="button" class="btn bg-coral add-timeline-btn"><i class="material-icons">add</i>&nbsp;Add a timeline</button>
               </div>
             </div>
           </div>
@@ -363,7 +363,7 @@
               </div>
 
               <div class="text-center">
-                <button class="btn bg-coral add-member-btn"><i class="material-icons">add</i>&nbsp;Add a member</button>
+                <button type="button" class="btn bg-coral add-member-btn"><i class="material-icons">add</i>&nbsp;Add a member</button>
               </div>
             </div>
           </div>
@@ -378,16 +378,14 @@
             </div>
           </div>
         </div>
-
-        <div class="float-right mb-4">
-          <button class="btn btn-lg">Cancel</button>
-          <button type="submit" class="btn btn-lg bg-coral">Save & Next</button>
+        <div class="row mt-4">
+          <div class="col-xs-10 col-md 6">
+            <button type="submit" class="btn btn-lg bg-coral btn-block">Save</button>
+          </div>
         </div>
       </div>
     </div>
  </form>
-
-
 {% endblock %}
 
 {% block js_libraries %}
