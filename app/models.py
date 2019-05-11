@@ -24,7 +24,7 @@ class Like(models.Model):
 
 # Startup Models
 class Startup(models.Model):
-    # user = models.ForeignKey('auth.User', related_name = "startups", on_delete=models.CASCADE)
+    #user = models.ForeignKey('auth.User', related_name = "startups", on_delete=models.CASCADE)
     cover_photo = models.ImageField(upload_to='images/',null=True)
     pitching_video_link = models.URLField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -40,15 +40,12 @@ class Startup(models.Model):
     business_model = models.TextField(default="")
     future = models.TextField(default="")
     raiseAmount = models.PositiveIntegerField(default=0)
-    # TODO : CHANGE VALIDATORS OF ARRAY : validators=[validate_timeline]
-    timeline = ArrayField(JSONField(default=dict),validators=[validate_timeline],blank=True,null=True)
+    timeline = JSONField(default=list,validators=[validate_timeline],blank=True,null=True)
     location = models.CharField(default="",max_length=50)
     summary = models.CharField(default="",max_length=255)
-    # TODO : ,validators=[validate_members]
-    members = ArrayField(JSONField(default=dict),validators=[validate_members],blank=True,null=True)
+    members = JSONField(default=list,validators=[validate_members],blank=True,null=True)
     team_desc = models.TextField(default="")
     def save(self, *args, **kwargs):
-        # TODO : CHECK IT FOR ARRAY FIELD
         timeline_unordered = [dict(data) for data in self.timeline]
         timeline_ordered = sorted(timeline_unordered, key=operator.itemgetter('date')) 
         self.timeline = timeline_ordered
