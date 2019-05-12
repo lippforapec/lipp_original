@@ -8,7 +8,7 @@
 {% block content %}
 <div id="startup-show">
   <!-- Cover Photo -->
-  <div id="cover"  class="position-relative overflow-hidden text-center bg-light">
+  <div id="cover" style="background-image: url('{{ getattr(startup.cover_photo, url, None }}')" class="position-relative overflow-hidden text-center bg-light">
     <h1 class="vertical-middle-header">{{ startup.product_name }}</h1>
     <div class="right-top">
       {% if is_owner %}
@@ -16,11 +16,13 @@
       {% endif %}
     </div>
     <div class="right-bottom">
-    {% if liked %}
-      <i class="material-icons color-coral">favorite</i>
+    {% if request_user_like%}
+      <i class="material-icons color-coral" id="like">favorite</i>
     {% else %}
-      <i class="material-icons color-coral">favorite_border</i>
-    {% endif %}
+    
+      <i class="material-icons color-coral" id= "like" >favorite_border</i>
+      {% csrf_token %}
+      {% endif %}
       <i class="material-icons">share</i>
     </div>
   </div>
@@ -182,7 +184,7 @@
       <div class="row justify-content-md-center">
         <div class="col-xs-10 col-sm-9">
           <form class="inline-form" role="form">
-              <textarea class="autosize" placeholder="Leave your feedback here."></textarea>
+              <textarea class="autosize" id="feedback_text" placeholder="Leave your feedback here."></textarea>
               <button type="submit" class="float-right btn btn-sm">Leave!</button>
           </form>
         </div>
@@ -222,16 +224,47 @@ $("textarea.autosize").on('keydown keyup', function () {
 });
 
 
+
 //menu transition js
 $(document).ready(function(){
   $('body').scrollspy({ target: '#content-nav' });
+  $("#like").click(function(){
+      var originalText = $(this).html();
+      if(originalText == "favorite"){
+        $('#like').text("favorite_border");
+        $.ajax(
+            {
+              url: "{% url 'delete_like' startup.id %}",
+              type: 'DELETE',
+              headers: {'X-CSRFToken': '{{ csrf_token }}'}
+            }
+          );
+      }else{
+          $('#like').text("favorite");
+          $.ajax(
+            {
+              url: "{% url 'create_like' %}",
+              type: 'POST',
+              headers: {'X-CSRFToken': '{{ csrf_token }}'},
+              data: {
+                "user_id" : {{ startup.user.id }} ,
+                "startup_id" : {{startup.id}}
+              },
+              dataType: 'json'
+            }
+          );
+        }
+      });
+
   $(window).scroll(function(){
-  	var scroll = $(window).scrollTop();
+    var scroll = $(window).scrollTop();
 	  if (scroll > 100) {
 	    $(".navbar").addClass("navbar-scroll");
         }
     	  else{
-		  $(".navbar").removeClass("navbar-scroll");
+      $(".navbar").removeClass("navbar-scroll");
+
+
 	  }
 	  if (scroll > 320) {
       $("#content-nav").addClass("sticky-top");
@@ -241,8 +274,10 @@ $(document).ready(function(){
 	  else{
       $("#content-nav").removeClass("sticky-top");
       $("#content-title").addClass("hide");
-	  }
-  })
+    }
+
+  });
+
 })
 
 </script>

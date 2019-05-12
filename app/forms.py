@@ -2,7 +2,7 @@ from django import forms
 from jsonfield import JSONField
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
-from .models import Startup
+from .models import Startup, Like
 import app.categories as cate
 # accounts 
 from django.contrib.auth.forms import UserCreationForm
@@ -89,7 +89,16 @@ class StartupForm(forms.Form):
     cover_photo = forms.FileField()
 
 
-
+## 
+class LikeForm(forms.Form):
+    user_id = forms.IntegerField()
+    startup_id = forms.IntegerField()
+    def save(self, commit=True):
+        like = Like.objects.create(
+            user_id = self.cleaned_data['user_id'],
+            startup_id = self.cleaned_data['startup_id'],
+        )
+        return like
 
 ## accounts 
 
