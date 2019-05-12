@@ -5,7 +5,7 @@ from django.forms.models import model_to_dict
 from django.db.models import Max,F
 
 
-from .forms import StartupForm, SimpleStartupForm, CustomUserCreationForm
+from .forms import StartupForm, SimpleStartupForm, CustomUserCreationForm, LikeForm
 from .models import Startup, Search, Like, Feedback
 
 # for accounts
@@ -15,6 +15,11 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
+
+
+# like
+from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def main(request):
     return render(request, 'main.html')
@@ -31,25 +36,30 @@ def startup_index(request):
 @login_required
 def startup_show(request, id):
     startup_obj = Startup.objects.filter(id = id).first()
-    like = Like.objects.filter(startup = startup_obj,liked=True).all()
+    like = startup_obj.startup_likes.all()
     liked = False # did request user like?
-    is_owner = False # request user is the owner of this startup?
-    like = Like.objects.filter(startup = startup_obj)\
-            .order_by('user', '-created_at').distinct('user')
-    
+    is_owner = False # request user is the owner of this startup?    
     if request.user == startup_obj.user:
         is_owner = True
-    # 이건 이거로 하면 안되게따... jquery 처리 필요
-    liked = like.filter(user=request.user).first().liked
-    like_count = like.filter(liked=True).count()
+    print(startup_obj)
+    # like data
+    # first 는 나중에 지우기
+    print("this is problem")
+    request_user_like = like.filter(user=request.user).first()
+    print(request_user_like)
+    like_count = like.count()
+    print(like_count)
+    # article data
     search = Search.objects.filter(category = startup_obj.category).first()
     article = search.results[:2]
-    print(Feedback.objects.filter(startup=startup_obj).all().values())
+    #print(Feedback.objects.filter(startup=startup_obj).all().values())
     #print(startup_obj.startup_feedbacks)
+    #request_user_like
+    print(Feedback.objects.filter(startup=startup_obj).all())
     context = { 'startup':  startup_obj,
                 'article': article ,
                 'is_owner':is_owner,
-                'liked': liked,
+                'request_user_like': request_user_like,
                 'likes' : like_count,
                 'feedbacks' : Feedback.objects.filter(startup=startup_obj).all()
               }
@@ -93,11 +103,39 @@ def startup_edit(request, id):
         response.status_code = 404
         return response
 
+# create and delete user in like 
+#class CreateLike(LoginRequiredMixin, generic.CreateView):
+#    model = Like 
+#    def form_valid(self, form):
+#        print("jey")
+        #form.instance.user = self.request.user
+        #super(CreateHall, self).form_valid(form)
+#        return 
+    
+    
+#class DeleteLike(generic.DeleteView):
+#    model = Like
+
+def like_delete(request,startup_id):
+    query = Like.objects.filter(user=request.user,startup_id=startup_id)
+    query.delete()
+    return HttpResponse("Deleted!")
 
 
+def like_create(request):
+    if request.method == 'POST':
+        form = LikeForm(request.POST)
+        #print(request.cleaned_data)
+        if form.is_valid():
+            print("its's safe")
+            like = form.save(commit=False)
+            like.user = request.user
+            like.save()
+            return HttpResponse('')
+        print("no..")
+        return HttpResponse('')
 
-
-
+# Signup view for users
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)

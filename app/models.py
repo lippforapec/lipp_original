@@ -1,27 +1,23 @@
+# to define models
 from django.db import models
 from django.contrib.postgres.fields import ArrayField, JSONField
-
 # validators
 from app.validators import validate_timeline, validate_members
-# for saving timelines
+# to save timelines
 import operator
 import json
 # import category constants
 import app.categories as cate
 
-
-
 # Like Models
 class Like(models.Model):
-    user = models.ForeignKey('auth.User', related_name = "user_like", on_delete=models.CASCADE)
-    startup = models.ForeignKey('Startup', related_name = "startup_like", on_delete=models.CASCADE)
-    liked = models.BooleanField(default=False)
+    user = models.ForeignKey('auth.User', related_name = "user_likes",on_delete=models.CASCADE)
+    startup = models.ForeignKey('Startup', related_name = "startup_likes",on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-
 
 # Startup Models
 class Startup(models.Model):
-    user = models.ForeignKey('auth.User', related_name = "startups", on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', related_name = "user_startups" ,on_delete=models.CASCADE)
     cover_photo = models.ImageField(upload_to='images/',null=True)
     pitching_video_link = models.URLField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -50,28 +46,19 @@ class Startup(models.Model):
 
 # Feedback Models
 class Feedback(models.Model):
-    user = models.ForeignKey('auth.User', related_name = "feedbacks", on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', related_name = "user_feedbacks",on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     feedback =  models.TextField()
-    startup = models.ForeignKey('Startup', related_name = "startup_feedbacks",  on_delete=models.CASCADE, default=0)
+    startup = models.ForeignKey('Startup', related_name = "startup_feedbacks",on_delete=models.CASCADE, default=0)
+    
+#reply models 
+class Reply(models.Model):
+    user = models.ForeignKey('auth.User', related_name = "user_replies",on_delete=models.CASCADE) 
+    feedback = models.ForeignKey('Feedback', related_name = "feedback_replies",on_delete=models.CASCADE)
     reply = models.TextField()
-    reply_at = models.DateTimeField(auto_now=True)
+    reply_at = models.DateTimeField(auto_now_add=True)
 
-
-# Article Models
-"""
-class Article(models.Model):
-    created_at =  models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=200)
-    summary = models.TextField()
-    link = models.URLField()
-    tags = ArrayField(models.CharField(max_length=100),blank=True,null=True)
-    category = models.PositiveSmallIntegerField(default=0)
-    class Meta:
-        ordering = ('created_at',)
-"""
-
-# Google Results Models
+# Search Results Models
 class Search(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     results = JSONField(default=list)
@@ -83,8 +70,17 @@ class Search(models.Model):
     #title = models.CharField(max_length=200)
     #link = models.URLField()
     #summary = models.TextField()
-    
     #rank = models.PositiveIntegerField()
 
-    
-    
+"""
+# Article Models
+class Article(models.Model):
+    created_at =  models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=200)
+    summary = models.TextField()
+    link = models.URLField()
+    tags = ArrayField(models.CharField(max_length=100),blank=True,null=True)
+    category = models.PositiveSmallIntegerField(default=0)
+    class Meta:
+        ordering = ('created_at',)
+"""
