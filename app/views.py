@@ -14,6 +14,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 
 def main(request):
     return render(request, 'main.html')
@@ -99,11 +100,16 @@ def startup_edit(request, id):
 
 def register(request):
     if request.method == 'POST':
-        f = CustomUserCreationForm(request.POST)
-        if f.is_valid():
-            f.save()
-            messages.success(request, 'Account created successfully')
-            return redirect('login')
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Thanks for registering. You are now logged in.")
+            new_user = authenticate(username=form.cleaned_data['username'],
+                                    password=form.cleaned_data['password1'],
+                                    )
+            # automatic login
+            login(request, new_user)
+            return redirect("startup_index")
     else:
-        f = CustomUserCreationForm()
-    return render(request, 'registration/signup.html', {'form': f})
+        form = CustomUserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
