@@ -30,7 +30,11 @@
           <a class="nav-link" href="{% url 'startup_show' id=1 %}">My start-up</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Login/Logout</a>
+            {% if user.is_authenticated %}
+            <a class="nav-link" href="{% url 'logout' %}">logout</a>
+            {% else %}
+            <a class="nav-link" href="{% url 'login' %}">login</a>
+            {% endif %}
         </li>
       </ul>
     </div>

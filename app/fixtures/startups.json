@@ -3,8 +3,10 @@
     "model": "app.startup",
     "id": 1,
     "fields": {
+      "user_id": 1,
       "name": "Lippers",
       "product_name": "Lipp",
+      "product_description": "This is for women",
       "tags": ["Techonology", "Startup", "Platform"],
       "category": 24,
       "background": "We though this is the problem.",
@@ -28,8 +30,10 @@
     "model": "app.startup",
     "id": 2,
     "fields": {
+      "user_id": 1,
       "name": "Amazon",
       "product_name": "Amazon Go",
+      "product_description": "This is for people",
       "tags": ["Techonology", "IoT", "Commerce"],
       "category": 7,
       "background": "We though this is the problem.",
