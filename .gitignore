@@ -5,4 +5,3 @@ postgres_config.py
 lipp/postgres_config.py
 .DS_Store
 .vscode/
-app/migrations/*
