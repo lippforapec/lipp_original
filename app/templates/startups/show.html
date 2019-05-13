@@ -8,7 +8,7 @@
 {% block content %}
 <div id="startup-show">
   <!-- Cover Photo -->
-  <div id="cover"  class="position-relative overflow-hidden text-center bg-light">
+  <div id="cover" style="background-image: url('{{ getattr(startup.cover_photo, url, None }}')" class="position-relative overflow-hidden text-center bg-light">
     <h1 class="vertical-middle-header">{{ startup.product_name }}</h1>
     <div class="right-top">
       {% if is_owner %}

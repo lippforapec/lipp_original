@@ -16,8 +16,7 @@ from django.core.exceptions import ValidationError
 class StartupForm(forms.ModelForm):
     class Meta:
         model = Startup
-        fields = ('name', 'location', 'raiseAmount', 'product_name', 'category', 'tags', 'summary',\
-                  'background', 'market','solution','business_model','future')
+        fields = ('name', 'location', 'raiseAmount', 'product_name', 'category', 'tags', 'summary')
         widgets = {
             'name': forms.TextInput(attrs = {
                     'placeholder': 'Enter the name of your company or team'
