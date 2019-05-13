@@ -8,7 +8,7 @@
 {% block content %}
 <div id="startup-show">
   <!-- Cover Photo -->
-  <div id="cover" style="background-image: url('{{ getattr(startup.cover_photo, url, None }}')" class="position-relative overflow-hidden text-center bg-light">
+  <div id="cover" style="background-image: url('{{ cover_photo_url }}')" class="position-relative overflow-hidden text-center bg-light">
     <h1 class="vertical-middle-header">{{ startup.product_name }}</h1>
     <div class="right-top">
       {% if is_owner %}
@@ -19,7 +19,7 @@
     {% if request_user_like%}
       <i class="material-icons color-coral" id="like">favorite</i>
     {% else %}
-    
+
       <i class="material-icons color-coral" id= "like" >favorite_border</i>
       {% csrf_token %}
       {% endif %}
@@ -161,7 +161,7 @@
     <div class="container">
       <h2 class="title">Article</h2>
       <div class="row">
-      {% for a in article %}      
+      {% for a in article %}
         <div class="col-sm-12 col-md-6">
           <div class="card">
             <div class="card-body">
@@ -190,7 +190,7 @@
         </div>
       </div>
 
-      {% for feedback in feedbacks %}  
+      {% for feedback in feedbacks %}
       <div class="col-xs-9">
         <div class="panel-group feedback-card">
           <div class="panel panel-default">

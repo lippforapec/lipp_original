@@ -2,6 +2,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Source Serif Pro', serif;
 }
 .navbar-brand:hover {
   color: #df6e5c !important;
@@ -12,15 +13,12 @@ body {
 }
 .navbar-brand {
   font-family: 'Pacifico', cursive;
-  /* font-family: 'Lobster', cursive; */
 }
 .lipp-header {
-  /* font-family: 'Lobster', cursive; */
   font-family: 'Pacifico', cursive;
   font-size: 200px;
   margin-left: 50px;
   margin-top: 30px;
-  /* text-align: center; */
 }
 @-webkit-keyframes spin {
   0%  {
@@ -134,9 +132,22 @@ input.form-control, textarea.form-control, select.form-control {
   border-radius: 3px;
 }
 /* main */
+#main h2 {
+  color: white;
+  font-weight: bolder;
+}
+#main .title-desc {
+  line-height: 30px;
+  font-size: 18px;
+}
 .bg-bg {
   background-color: rgba(23,9,15,1.0);
   color: white;
+}
+.bg-handshake {
+  background-image: linear-gradient(rgba(3,7,7,0.6), rgba(3,7,7,0.4)), url('../images/shakehands.jpeg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .bg-lipp {
   background-position: right 20px bottom 20px;
@@ -146,14 +157,15 @@ input.form-control, textarea.form-control, select.form-control {
 }
 /* index */
 #index-cover {
-  background-image: linear-gradient(rgba(3,7,7,0.6), rgba(3,7,7,0.4)), url('cover.jpeg');
+  background-image: linear-gradient(rgba(3,7,7,0.6), rgba(3,7,7,0.4)), url('../images/startuppitching.jpg');
   width: 100%;
-  height: 400px;
+  height: 450px;
   background-attachment: fixed;
   background-size: cover;
+  background-position: right 20px bottom 120px;
 }
 #index-cover>div {
-  margin-top: 120px;
+  margin-top: 150px;
   color: white;
 }
 #index-cover h1 {
@@ -172,11 +184,12 @@ input.form-control, textarea.form-control, select.form-control {
     width: 100%;
 }
 #trending .dx::-webkit-scrollbar { width: 0 !important }
+
 .xc{
     display:inline-block;
     width:300px;
     line-height:80px;
-    text-align:center;
+    font-weight: 400;
     margin-bottom:4px;
 }
 .xc .card-text {

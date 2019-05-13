@@ -1,4 +1,6 @@
 {% load static %}
+{% load custom_filter %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +9,7 @@
   <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
   <link rel="stylesheet" href="{% static 'libraries/bootstrap@4/bootstrap.min.css' %}"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css?family=Lobster|Pacifico" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|Source+Serif+Pro" rel="stylesheet"/>
   {% block css_libraries %}
   {% endblock %}
   <link rel="stylesheet" type="text/css" href="{% static 'app/main.css' %}">
@@ -27,7 +29,11 @@
           <a class="nav-link" href="{% url 'startup_index' %}">Start-ups</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'startup_show' id=1 %}">My start-up</a>
+          {% if user|user_has:startup %}
+          <a class="nav-link" href="{% url 'startup_show' id=user.startup.id %}">My start-up</a>
+          {% else %}
+          <a class="nav-link" href="{% url 'startup_new' %}">My start-up</a>
+          {% endif %}
         </li>
         <li class="nav-item">
             {% if user.is_authenticated %}
