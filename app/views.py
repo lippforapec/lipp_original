@@ -4,7 +4,7 @@ from django.views import generic
 from django.forms.models import model_to_dict
 
 
-from .forms import StartupForm, CustomUserCreationForm, LikeForm
+from .forms import StartupForm, CustomUserCreationForm, LikeForm, FeedbackForm
 from .models import Startup, Search, Like, Feedback
 
 # for accounts
@@ -65,6 +65,7 @@ def startup_show(request, id):
     return render(request, 'startups/show.html', context)
 
 # form: https://tutorial.djangogirls.org/ko/django_forms/
+# form field 별로 다르게 field 받고 ,form 받은 것을 하나하나 확인해가면서 추가하기
 @login_required
 def startup_new(request):
     if request.method == "POST":
@@ -137,8 +138,26 @@ def like_create(request):
             like.user = request.user
             like.save()
             return HttpResponse('')
-        print("no..")
-        return HttpResponse('')
+        response = HttpResponse("<h2>Page Not Found<h2>")
+        response.status_code = 404
+        return response
+
+# feedbacks 
+@login_required
+def feedback_create(request):
+    if request.method == "POST":
+        form = FeedbackForm(request.POST)
+        print(form.data)
+        if form.is_valid():
+            print("its's safe")
+            f = form.save(commit=False)
+            f.user = request.user
+            f.save()
+            return HttpResponse('success!')
+        response = HttpResponse("<h2>Page Not Found<h2>")
+        response.status_code = 404
+        return response
+
 
 # Signup view for users
 def register(request):

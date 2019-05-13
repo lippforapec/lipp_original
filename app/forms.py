@@ -2,7 +2,7 @@ from django import forms
 from jsonfield import JSONField
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
-from .models import Startup, Like
+from .models import Startup, Like, Feedback
 import app.categories as cate
 # accounts 
 from django.contrib.auth.forms import UserCreationForm
@@ -10,10 +10,14 @@ from django.contrib.auth.models import User
 from django import forms
 from django.core.exceptions import ValidationError
 
+
+
+
 class StartupForm(forms.ModelForm):
     class Meta:
         model = Startup
-        fields = ('name', 'location', 'raiseAmount', 'product_name', 'category', 'tags', 'summary')
+        fields = ('name', 'location', 'raiseAmount', 'product_name', 'category', 'tags', 'summary',\
+                  'background', 'market','solution','business_model','future')
         widgets = {
             'name': forms.TextInput(attrs = {
                     'placeholder': 'Enter the name of your company or team'
@@ -52,6 +56,26 @@ class StartupForm(forms.ModelForm):
 
 
 ## 
+"""
+class FeedbackForm(forms.ModelForm):
+    class Meta: 
+        model = Feedback
+        fields = ('feedback','startup',)
+"""
+
+class FeedbackForm(forms.Form):
+    feedback = forms.CharField()
+    user_id = forms.IntegerField()
+    startup_id = forms.IntegerField()
+    def save(self, commit=True):
+        feed = Feedback.objects.create(
+            feedback = self.cleaned_data['feedback'],
+            user_id = self.cleaned_data['user_id'],
+            startup_id = self.cleaned_data['startup_id'],
+        )
+        return feed
+
+
 class LikeForm(forms.Form):
     user_id = forms.IntegerField()
     startup_id = forms.IntegerField()
