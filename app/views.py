@@ -47,7 +47,9 @@ def startup_show(request, id):
     like_count = likes.count()
     # article data
     search = Search.objects.filter(category = startup_obj.category).first()
-    article = search.results[:2]
+    article = None
+    if search != None:
+        article = search.results[:2]
     #print(Feedback.objects.filter(startup=startup_obj).all().values())
     #print(startup_obj.startup_feedbacks)
     print(Feedback.objects.filter(startup=startup_obj).all())
@@ -76,11 +78,13 @@ def startup_new(request):
             startup.user = request.user
             startup.save()
             return redirect('startup_show', id=startup.id)
-        print("no..")
         return render(request, 'startups/new.html', {'form': form })
     elif request.method == "GET":
-        form = StartupForm()
-        return render(request, 'startups/new.html', {'form': form })
+        if hasattr(request.user, 'startup') != None:
+            return redirect('startup_edit', id=request.user.startup.id)
+        else:
+            form = StartupForm()
+            return render(request, 'startups/new.html', {'form': form })
 
 @login_required
 def startup_edit(request, id):
