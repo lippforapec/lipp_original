@@ -18,7 +18,7 @@ class Like(models.Model):
 # Startup Models
 class Startup(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
-    cover_photo = models.ImageField(upload_to='images/',null=True)
+    cover_photo = models.ImageField(upload_to='uploads/',null=True)
     pitching_video_link = models.URLField(blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     name = models.CharField(default="",max_length=50)
