@@ -6,6 +6,7 @@ from django.forms.models import model_to_dict
 
 from .forms import StartupForm, CustomUserCreationForm, LikeForm
 from .models import Startup, Search, Like, Feedback
+import app.categories as cate
 
 # for accounts
 from django.contrib import messages
@@ -35,25 +36,20 @@ def startup_index(request):
 @login_required
 def startup_show(request, id):
     startup_obj = Startup.objects.filter(id = id).first()
-    like = startup_obj.startup_likes.all()
-    liked = False # did request user like?
     is_owner = False # request user is the owner of this startup?
     if request.user == startup_obj.user:
         is_owner = True
-    print(startup_obj)
     # like data
     # first 는 나중에 지우기
-    print("this is problem")
-    request_user_like = like.filter(user=request.user).first()
+    likes = startup_obj.startup_likes.all()
+    request_user_like = likes.filter(user=request.user).first()
     print(request_user_like)
-    like_count = like.count()
-    print(like_count)
+    like_count = likes.count()
     # article data
     search = Search.objects.filter(category = startup_obj.category).first()
     article = search.results[:2]
     #print(Feedback.objects.filter(startup=startup_obj).all().values())
     #print(startup_obj.startup_feedbacks)
-    #request_user_like
     print(Feedback.objects.filter(startup=startup_obj).all())
     context = { 'startup':  startup_obj,
                 'article': article ,
@@ -70,7 +66,7 @@ def startup_show(request, id):
 def startup_new(request):
     if request.method == "POST":
         print(request.method)
-        # post 가 필요한 모든 필드가 안들어와서 valid 하지 않은 상태 
+        # post 가 필요한 모든 필드가 안들어와서 valid 하지 않은 상태
         form = StartupForm(request.POST)
         #data = request.POST.copy()
         #print(data.get('product_name'))
