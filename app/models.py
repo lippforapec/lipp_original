@@ -17,7 +17,7 @@ class Like(models.Model):
 
 # Startup Models
 class Startup(models.Model):
-    user = models.ForeignKey('auth.User', related_name = "user_startups" ,on_delete=models.CASCADE)
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
     cover_photo = models.ImageField(upload_to='images/',null=True)
     pitching_video_link = models.URLField(blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -40,7 +40,7 @@ class Startup(models.Model):
     team_desc = models.TextField(default="",blank=True,null=True)
     def save(self, *args, **kwargs):
         timeline_unordered = [dict(data) for data in self.timeline]
-        timeline_ordered = sorted(timeline_unordered, key=operator.itemgetter('date')) 
+        timeline_ordered = sorted(timeline_unordered, key=operator.itemgetter('date'))
         self.timeline = timeline_ordered
         super(Startup, self).save(*args, **kwargs)
 
@@ -50,10 +50,10 @@ class Feedback(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     feedback =  models.TextField()
     startup = models.ForeignKey('Startup', related_name = "startup_feedbacks",on_delete=models.CASCADE, default=0)
-    
-#reply models 
+
+#reply models
 class Reply(models.Model):
-    user = models.ForeignKey('auth.User', related_name = "user_replies",on_delete=models.CASCADE) 
+    user = models.ForeignKey('auth.User', related_name = "user_replies",on_delete=models.CASCADE)
     feedback = models.ForeignKey('Feedback', related_name = "feedback_replies",on_delete=models.CASCADE)
     reply = models.TextField()
     reply_at = models.DateTimeField(auto_now_add=True)
