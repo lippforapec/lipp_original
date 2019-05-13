@@ -38,7 +38,7 @@ def startup_show(request, id):
     startup_obj = Startup.objects.filter(id = id).first()
     like = startup_obj.startup_likes.all()
     liked = False # did request user like?
-    is_owner = False # request user is the owner of this startup?    
+    is_owner = False # request user is the owner of this startup?
     if request.user == startup_obj.user:
         is_owner = True
     print(startup_obj)
@@ -59,6 +59,7 @@ def startup_show(request, id):
     context = { 'startup':  startup_obj,
                 'article': article ,
                 'is_owner':is_owner,
+                'cover_photo_url': getattr(startup_obj.cover_photo, 'url', None),
                 'request_user_like': request_user_like,
                 'likes' : like_count,
                 'feedbacks' : Feedback.objects.filter(startup=startup_obj).all()
@@ -89,7 +90,7 @@ def startup_edit(request, id):
             form = SimpleStartupForm(request.POST, instance = startup)
             if form.is_valid():
                 startup = form.save(commit=False)
-                startup.user = request.user 
+                startup.user = request.user
                 startup.save()
                 return redirect('startup_show', id = startup.id)
             else:
@@ -103,16 +104,16 @@ def startup_edit(request, id):
         response.status_code = 404
         return response
 
-# create and delete user in like 
+# create and delete user in like
 #class CreateLike(LoginRequiredMixin, generic.CreateView):
-#    model = Like 
+#    model = Like
 #    def form_valid(self, form):
 #        print("jey")
         #form.instance.user = self.request.user
         #super(CreateHall, self).form_valid(form)
-#        return 
-    
-    
+#        return
+
+
 #class DeleteLike(generic.DeleteView):
 #    model = Like
 
