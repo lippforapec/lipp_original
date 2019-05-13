@@ -92,7 +92,7 @@ def startup_edit(request, id):
     if request.user == startup.user:
         sd = model_to_dict(startup)
         if request.method == "POST":
-            form = SimpleStartupForm(request.POST, instance = startup)
+            form = StartupForm(request.POST, instance = startup)
             if form.is_valid():
                 startup = form.save(commit=False)
                 startup.user = request.user

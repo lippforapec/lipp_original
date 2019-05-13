@@ -21,7 +21,7 @@
               <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
               <div class="card-body">
                 <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
-                <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary }}</a></p>
+                <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>
                 <div class="tags">
                   {% for tag in wc.tags %}
                     <span class="badge badge-pill badge-sand">#{{ tag }}</span>
@@ -46,7 +46,7 @@
                 <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
                 <div class="card-body" style="white-space: normal;line-height: 20px;">
                   <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
-                  <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary }}</a></p>
+                  <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>
                   <div class="tags">
                     {% for tag in wc.tags %}
                       <span class="badge badge-pill badge-sand">#{{ tag }}</span>
@@ -72,7 +72,7 @@
                 <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
                 <div class="card-body" style="white-space: normal;line-height: 20px;">
                   <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
-                  <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary }}</a></p>
+                  <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>
                   <div class="tags">
                     {% for tag in wc.tags %}
                       <span class="badge badge-pill badge-sand">#{{ tag }}</span>
