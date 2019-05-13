@@ -2,10 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.views import generic
 from django.forms.models import model_to_dict
-from django.db.models import Max,F
 
 
-from .forms import StartupForm, SimpleStartupForm, CustomUserCreationForm, LikeForm
+from .forms import StartupForm, CustomUserCreationForm, LikeForm
 from .models import Startup, Search, Like, Feedback
 
 # for accounts
@@ -70,16 +69,22 @@ def startup_show(request, id):
 @login_required
 def startup_new(request):
     if request.method == "POST":
+        print(request.method)
+        # post 가 필요한 모든 필드가 안들어와서 valid 하지 않은 상태 
         form = StartupForm(request.POST)
+        #data = request.POST.copy()
+        #print(data.get('product_name'))
+        #print(data.get('product_name'))
         if form.is_valid():
-            form.save(commit = True)
-            #startup.user = request.user
-            #startup.created_at = timezone.now()
-            #startup.save()
+            startup=form.save(commit = False)
+            startup.user = request.user
+            startup.save()
             return redirect('startup_show', id=startup.id)
-    else:
+        print("no..")
+        return render(request, 'startups/new.html', {'form': form })
+    elif request.method == "GET":
         form = StartupForm()
-    return render(request, 'startups/new.html', {'form': form })
+        return render(request, 'startups/new.html', {'form': form })
 
 @login_required
 def startup_edit(request, id):
