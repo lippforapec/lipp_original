@@ -54,7 +54,7 @@ def startup_show(request, id):
                 # 'cover_photo_url': getattr(startup_obj.cover_photo, 'url', None),
                 'request_user_like': request_user_like,
                 'likes' : like_count,
-                'feedbacks' : Feedback.objects.filter(startup=startup_obj).all()
+                'feedbacks' : Feedback.objects.filter(startup=startup_obj).all().order_by('-created_at')
               }
     return render(request, 'startups/show.html', context)
 
@@ -144,11 +144,10 @@ def feedback_create(request):
         form = FeedbackForm(request.POST)
         print(form.data)
         if form.is_valid():
-            print("its's safe")
             f = form.save(commit=False)
             f.user = request.user
             f.save()
-            return HttpResponse('success!')
+            return HttpResponse(status=200)
         response = HttpResponse("<h2>Page Not Found<h2>")
         response.status_code = 404
         return response

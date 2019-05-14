@@ -194,7 +194,7 @@
       <div class="col-xs-9">
         <div class="panel-group feedback-card">
           <div class="panel panel-default">
-            <button class="feedback-answer-btn btn btn-sm" data-toggle="collapse" href="#answer1">Hide reply</button>
+            <!-- <button class="feedback-answer-btn btn btn-sm" data-toggle="collapse" href="#answer1">Hide reply</button> -->
 
             <h5 class="panel-title"><i class="material-icons">face</i>&nbsp;{{feedback.user.username}}<span class="feedback-date">{{feedback.created_at}}</span></h5>
             <p class="feedback-content">
@@ -202,12 +202,12 @@
             </p>
           </div>
 
-          <div id="answer1" class="m4panel-collapse collapse show feedback-answer">
+          <!-- <div id="answer1" class="m4panel-collapse collapse show feedback-answer">
             <h5 class="ml-4 panel-title"><i class="material-icons">domain</i>&nbsp;Founder<span class="feedback-date">2019.04.14</span></h5>
             <p class="panel-body">
                 {{feedback.reply}}
             </p>
-          </div>
+          </div> -->
         </div>
       </div>
       {% endfor %}
@@ -227,20 +227,30 @@ $("textarea.autosize").on('keydown keyup', function () {
 $(document).ready(function(){
   $('body').scrollspy({ target: '#content-nav' });
 
-  $("#feedback_form").submit(function () {
+  $("#feedback_form").submit(function(e) {
     $.ajax({
       url: $(this).attr('action'),
-        type: "POST",
-        headers: {'X-CSRFToken': '{{ csrf_token }}'},
-        data: {
-          "feedback" : "im here, I will contact you!",
-          "user_id" : {{ startup.user.id }} ,
-          "startup_id" : {{startup.id}}
-        },
-        dataType: 'json'
+      type: "POST",
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},
+      data: {
+        "feedback" : e.target.querySelector("textarea").value,
+        "user_id" : {{ startup.user.id }} ,
+        "startup_id" : {{startup.id}}
+      },
+      dataType: 'json'
+    })
+    .done(function(res) {
+      window.location.href = window.location.href += "#feedback";
+      window.location.reload();
+    })
+    .fail(function(e) {
+      console.log(e);
+      window.location.href = window.location.href += "#feedback";
+      window.location.reload();
     });
     return false;
   });
+
 
   $("#like").tooltip('show');
   $("#like").click(function(event){
