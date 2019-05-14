@@ -1,5 +1,6 @@
 {% extends 'startups/base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block css_libraries %}
 <link rel="stylesheet" type="text/css" href="{% static 'libraries/timeline/timeline.css' %}">
@@ -152,28 +153,24 @@
   <div id="fund" class="container-fluid">
     <div class="container">
         <h2 class="text-center">We are looking for</h2>
-        <h1 class="text-center">${{ startup.raiseAmount }}</h1>
+        <h1 class="text-center">${{ startup.raiseAmount|intcomma }}</h1>
     </div>
   </div>
 
   <div id="article" class="container-fluid">
     <div class="container">
       <h2 class="title">Article</h2>
-      <div class="row">
+      <div class="card-columns">
       {% for a in article %}
-        <div class="col-sm-12 col-md-6">
-          <div class="card">
-            <div class="card-body">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              <h5 class="card-title"><a href= "{{ a.link }}">{{a.title}}</a></h5>
-              <p class="card-text">{{a.summary}}</p>
-            </div>
+        <div class="card">
+          <div class="card-body">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <h5 class="card-title"><a href= "{{ a.link }}">{{a.title}}</a></h5>
+            <p class="card-text">{{a.summary}}</p>
           </div>
         </div>
       {% endfor %}
       </div>
-
-      <button type="button" class="mx-auto btn-sm btn more-btn">10+ more</button>
     </div>
   </div>
 
@@ -240,12 +237,12 @@ $(document).ready(function(){
       dataType: 'json'
     })
     .done(function(res) {
-      window.location.href = window.location.href += "#feedback";
+      window.location.href = window.location.origin + window.location.pathname + "#feedback";
       window.location.reload();
     })
     .fail(function(e) {
       console.log(e);
-      window.location.href = window.location.href += "#feedback";
+      window.location.href = window.location.origin + window.location.pathname + "#feedback";
       window.location.reload();
     });
     return false;

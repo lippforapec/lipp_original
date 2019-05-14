@@ -46,7 +46,7 @@ def startup_show(request, id):
     search = Search.objects.filter(category = startup_obj.category).first()
     article = None
     if search != None:
-        article = search.results[:2]
+        article = search.results[:6]
     print(Feedback.objects.filter(startup=startup_obj).all())
     context = { 'startup': startup_obj,
                 'article': article ,
