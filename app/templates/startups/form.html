@@ -401,11 +401,9 @@
     editorNames.forEach(function(name) {
       formData.push({
         name: name,
-        value: $(`#${name}.summernote`).summernote('code')
+        value: $(`#input-${name}.summernote`).summernote('code')
       });
     });
-    alert(formData);
-
     return true;
   });
   /* progressBar */
