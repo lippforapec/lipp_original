@@ -25,7 +25,7 @@
       {% endif %}
 
       todo: copy to clipboard
-      <i class="material-icons">share</i>
+      <i id="share-btn" class="material-icons">share</i>
       </div>
   </div>
 
@@ -216,6 +216,7 @@
     </div>
   </div>
 </div>
+<input type="hidden" id="paste-box" />
 {% endblock %}
 
 {% block js_libraries %}
@@ -225,9 +226,6 @@ $("textarea.autosize").on('keydown keyup', function () {
   $(this).height(1).height( $(this).prop('scrollHeight') );
 });
 
-
-
-//menu transition js
 $(document).ready(function(){
   $('body').scrollspy({ target: '#content-nav' });
 
@@ -249,6 +247,17 @@ $(document).ready(function(){
     });
   });
 
+
+  $("#share-btn").click(function(_event) {
+    var Url = document.getElementById("paste-box");
+     Url.value = window.location.href;
+     Url.focus();
+     Url.select();
+     document.execCommand("Copy");
+    alert("Copied to the clipboard!");
+  });
+
+  //menu transition js
   $(window).scroll(function(){
     var scroll = $(window).scrollTop();
 	  if (scroll > 100) {
@@ -268,9 +277,7 @@ $(document).ready(function(){
       $("#content-nav").removeClass("sticky-top");
       $("#content-title").addClass("hide");
     }
-
   });
-
 })
 
 </script>

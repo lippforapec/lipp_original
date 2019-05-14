@@ -23,3 +23,7 @@ def in_visible_fields(value):
     return not (value in ["Cover photo", "Background", "Solution", "Market",
                         "Business model", "Future", "Members", "Team desc",
                         "Pitching video link", "Product description", "Timeline"])
+
+@register.filter
+def summernote_fields(value):
+    return value in ["Background", "Solution", "Market", "Business model", "Future"]
