@@ -51,7 +51,7 @@ def startup_show(request, id):
     context = { 'startup': startup_obj,
                 'article': article ,
                 'is_owner': is_owner,
-                # 'cover_photo_url': getattr(startup_obj.cover_photo, 'url', None),
+                'cover_photo_url': getattr(startup_obj.cover_photo, 'url', None),
                 'request_user_like': request_user_like,
                 'likes' : like_count,
                 'feedbacks' : Feedback.objects.filter(startup=startup_obj).all().order_by('-created_at')
@@ -65,10 +65,7 @@ def startup_new(request):
     if request.method == "POST":
         print(request.method)
         # post 가 필요한 모든 필드가 안들어와서 valid 하지 않은 상태
-        form = StartupForm(request.POST)
-        #data = request.POST.copy()
-        #print(data.get('product_name'))
-        #print(data.get('product_name'))
+        form = StartupForm(request.POST, request.FILES)
         if form.is_valid():
             startup=form.save(commit = False)
             startup.user = request.user
@@ -87,13 +84,15 @@ def startup_edit(request, id):
     startup = Startup.objects.get(id = id)
     if request.user == startup.user:
         sd = model_to_dict(startup)
+        print(sd)
         if request.method == "POST":
-            form = StartupForm(request.POST, instance = startup)
+            form = StartupForm(request.POST, request.FILES, instance = startup)
             if form.is_valid():
-                startup = form.save(commit=True)
-                # return redirect('startup_show', id = startup.id)
+                startup = form.save(commit=False)
+                startup.user = request.user
+                startup.save()
+                return redirect('startup_show', id = startup.id)
             else:
-                print(form.errors)
                 return render(request, 'startups/edit.html', {'form': StartupForm(initial=sd), 'id': startup.id, 'errors': form.errors})
         else:
             sd['tags'] = str(sd['tags']).replace("[","").replace("\"","").replace("]","")

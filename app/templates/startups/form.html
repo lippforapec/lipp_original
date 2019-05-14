@@ -58,7 +58,7 @@
         </ul>
       </div>
     </div>
-  <form method="POST" id="new-form" action="{% block url %}{% endblock %}" class="post-form">
+  <form method="POST" id="new-form" enctype="multipart/form-data" action="{% block url %}{% endblock %}" class="post-form">
     {% csrf_token %}
     <div id="basic-info" class="container-fluid">
       <div class="container">
