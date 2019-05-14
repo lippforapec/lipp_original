@@ -18,4 +18,8 @@ urlpatterns = [
     path('likes/create', views.like_create, name='create_like'),
     path('likes/delete/<int:startup_id>', views.like_delete, name='delete_like'),
     #path('like/<int:id>', views.DeleteLike.as_view(), name='delete_like')
+
+    # feedbacks
+    path('feedback/create', views.feedback_create, name='create_feedback'),
+    
 ]

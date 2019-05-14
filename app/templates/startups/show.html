@@ -185,9 +185,10 @@
       <h2 class="title">Feedback</h2>
       <div class="row justify-content-md-center">
         <div class="col-xs-10 col-sm-9">
-          <form class="inline-form" role="form">
-              <textarea class="autosize" id="feedback_text" placeholder="Leave your feedback here."></textarea>
-              <button type="submit" class="float-right btn btn-sm">Leave!</button>
+
+          <form class="inline-form" action="{% url 'create_feedback' %}" method="POST" id="feedback_form">{% csrf_token %}
+              <textarea class="autosize" placeholder="Leave your feedback here."></textarea>
+              <button type="submit" class="float-right btn btn-sm" value="Summit" >Leave!</button>
           </form>
         </div>
       </div>
@@ -228,6 +229,21 @@ $("textarea.autosize").on('keydown keyup', function () {
 
 $(document).ready(function(){
   $('body').scrollspy({ target: '#content-nav' });
+
+  $("#feedback_form").submit(function () {
+    $.ajax({
+      url: $(this).attr('action'),
+        type: "POST",
+        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+        data: {
+          "feedback" : "im here, I will contact you!",
+          "user_id" : {{ startup.user.id }} ,
+          "startup_id" : {{startup.id}}
+        },
+        dataType: 'json'
+    });
+    return false;
+  });
 
   $("#like").click(function(event){
     var requestForLike = (event.target.innerText == 'favorite_border');

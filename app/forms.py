@@ -2,13 +2,14 @@ from django import forms
 from jsonfield import JSONField
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from .models import Startup, Like, Feedback
+import app.categories as cate
+# accounts
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Startup, Like
-import app.categories as cate
 
 class StartupForm(forms.ModelForm):
     class Meta:
@@ -53,6 +54,26 @@ class StartupForm(forms.ModelForm):
 
 
 ##
+"""
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ('feedback','startup',)
+"""
+
+class FeedbackForm(forms.Form):
+    feedback = forms.CharField()
+    user_id = forms.IntegerField()
+    startup_id = forms.IntegerField()
+    def save(self, commit=True):
+        feed = Feedback.objects.create(
+            feedback = self.cleaned_data['feedback'],
+            user_id = self.cleaned_data['user_id'],
+            startup_id = self.cleaned_data['startup_id'],
+        )
+        return feed
+
+
 class LikeForm(forms.Form):
     user_id = forms.IntegerField()
     startup_id = forms.IntegerField()
