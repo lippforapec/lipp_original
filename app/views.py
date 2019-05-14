@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.views import generic
 from django.forms.models import model_to_dict
+from django.db.models import Count
 
 
 from .forms import StartupForm, CustomUserCreationForm, LikeForm, FeedbackForm
@@ -26,9 +27,10 @@ def main(request):
 
 @login_required
 def startup_index(request):
+    
     context = {
         'watching': Startup.objects.all()[:3],
-        'trending': Startup.objects.all(),
+        'trending': Startup.objects.all().values().annotate(total=Count('startup_likes')).order_by('-total')[:6],
         'technology': Startup.objects.all(),# filter(category=24),
     }
     return render(request, 'startups/index.html', context)
