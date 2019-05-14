@@ -45,6 +45,10 @@ nav .logo {
   color: white;
   background-color: #df6e5c;
 }
+.bg-coral:hover {
+  background-color: #ac5e3d;
+  color: white;
+}
 .help-txt {
   color: gray;
   font-weight: 100;
@@ -71,7 +75,11 @@ input.form-control, textarea.form-control, select.form-control {
 }
 /* new */
 #new-cover {
-  /* background-image: linear-gradient(rgba(3,7,7,0.6), rgba(3,7,7,0.4)); */
+  background-image: linear-gradient(rgba(3,7,7,0.6), rgba(3,7,7,0.4)), url('../images/audiences.jpeg');
+  bckground-repeat: none;
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
   width: 100%;
 }
 #new-cover>div {
@@ -133,8 +141,10 @@ input.form-control, textarea.form-control, select.form-control {
 }
 /* main */
 #main h2 {
-  color: white;
   font-weight: bolder;
+}
+#main h3 {
+  color: #df6e5c;
 }
 #main .title-desc {
   line-height: 30px;
@@ -146,6 +156,7 @@ input.form-control, textarea.form-control, select.form-control {
 }
 .bg-handshake {
   background-image: linear-gradient(rgba(3,7,7,0.6), rgba(3,7,7,0.4)), url('../images/shakehands.jpeg');
+  color: white;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
