@@ -16,15 +16,12 @@
       {% endif %}
     </div>
     <div class="right-bottom">
-      TODO: bootstrap tooltip
-      <span id="like_cnt">{{ likes }}</span>
       {% if request_user_like %}
-        <i class="material-icons color-coral" id="like">favorite</i>
+        <i class="material-icons color-coral" id="like" data-toggle="tooltip" title="{{likes}}">favorite</i>
       {% else %}
-        <i class="material-icons color-coral" id= "like" >favorite_border</i>
+        <i class="material-icons color-coral" id="like" data-toggle="tooltip" title="{{likes}}">favorite_border</i>
       {% endif %}
 
-      todo: copy to clipboard
       <i id="share-btn" class="material-icons">share</i>
       </div>
   </div>
@@ -245,6 +242,7 @@ $(document).ready(function(){
     return false;
   });
 
+  $("#like").tooltip('show');
   $("#like").click(function(event){
     var requestForLike = (event.target.innerText == 'favorite_border');
     $.ajax({
@@ -258,6 +256,7 @@ $(document).ready(function(){
       dataType: 'json',
       success: function(response) {
         $("#like_cnt").text(response);
+        $("#like").attr('data-original-title', response).tooltip('show');
         $(event.target).text(requestForLike ? 'favorite' : 'favorite_border');
       }
     });
@@ -265,12 +264,15 @@ $(document).ready(function(){
 
 
   $("#share-btn").click(function(_event) {
-    var Url = document.getElementById("paste-box");
-     Url.value = window.location.href;
-     Url.focus();
-     Url.select();
-     document.execCommand("Copy");
-    alert("Copied to the clipboard!");
+
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => {
+         alert("Copied the text: " + window.location.href);
+      })
+      .catch(err => {
+        // This can happen if the user denies clipboard permissions:
+        console.error('Could not copy text: ', err);
+      });
   });
 
   //menu transition js
@@ -278,11 +280,9 @@ $(document).ready(function(){
     var scroll = $(window).scrollTop();
 	  if (scroll > 100) {
 	    $(".navbar").addClass("navbar-scroll");
-        }
-    	  else{
+    }
+	  else{
       $(".navbar").removeClass("navbar-scroll");
-
-
 	  }
 	  if (scroll > 320) {
       $("#content-nav").addClass("sticky-top");

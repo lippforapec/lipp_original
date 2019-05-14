@@ -295,6 +295,7 @@ button.more-btn {
 #startup-show #cover .material-icons {
   font-size: 40px;
   color: white;
+  cursor: pointer;
 }
 
 .container {
