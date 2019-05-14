@@ -5,8 +5,8 @@ from django.forms.models import model_to_dict
 from django.db.models import Count
 
 
-from .forms import StartupForm, CustomUserCreationForm, LikeForm, FeedbackForm
-from .models import Startup, Search, Like, Feedback
+from .forms import StartupForm, CustomUserCreationForm, LikeForm, FeedbackForm, UsertypeForm
+from .models import Startup, Search, Like, Feedback, Usertype
 import app.categories as cate
 
 # for accounts
@@ -165,7 +165,29 @@ def register(request):
                                     )
             # automatic login
             login(request, new_user)
-            return redirect("startup_index")
+            return redirect("usertype")
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+@login_required 
+def get_user_type(request):
+    if request.method == 'POST':
+        form = UsertypeForm(request.POST)
+        if form.is_valid():
+            f = form.save(commit=False)
+            data = request.POST.copy()
+            usertype = data.get('type')
+            f.user = request.user
+            f.save()
+            if usertype == '0':
+                return redirect('startup_new')
+            else: 
+                return redirect("startup_index")
+    elif request.method == "GET":
+        form = UsertypeForm()
+        return render(request, 'registration/usertype.html', {'form': form})
+
+
+

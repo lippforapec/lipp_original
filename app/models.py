@@ -9,6 +9,12 @@ import json
 # import category constants
 import app.categories as cate
 
+USERTYPE = ((0,'Entrepreneur'),(1,'Investor'))
+# user type 
+class Usertype(models.Model): 
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    type = models.PositiveSmallIntegerField(choices=USERTYPE,default=0)
+
 # Like Models
 class Like(models.Model):
     user = models.ForeignKey('auth.User', related_name = "user_likes",on_delete=models.CASCADE)
