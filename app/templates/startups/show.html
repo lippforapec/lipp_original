@@ -1,5 +1,6 @@
 {% extends 'startups/base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block css_libraries %}
 <link rel="stylesheet" type="text/css" href="{% static 'libraries/timeline/timeline.css' %}">
@@ -8,7 +9,7 @@
 {% block content %}
 <div id="startup-show">
   <!-- Cover Photo -->
-  <div id="cover" style="background-image: url('{{ cover_photo_url }}')" class="position-relative overflow-hidden text-center bg-light">
+  <div id="cover" class="position-relative overflow-hidden text-center bg-light">
     <h1 class="vertical-middle-header">{{ startup.product_name }}</h1>
     <div class="right-top">
       {% if is_owner %}
@@ -16,15 +17,14 @@
       {% endif %}
     </div>
     <div class="right-bottom">
-    {% if request_user_like%}
-      <i class="material-icons color-coral" id="like">favorite</i>
-    {% else %}
-
-      <i class="material-icons color-coral" id= "like" >favorite_border</i>
-      {% csrf_token %}
+      {% if request_user_like %}
+        <i class="material-icons color-coral" id="like" data-toggle="tooltip" title="{{likes}}">favorite</i>
+      {% else %}
+        <i class="material-icons color-coral" id="like" data-toggle="tooltip" title="{{likes}}">favorite_border</i>
       {% endif %}
-      <i class="material-icons">share</i>
-    </div>
+
+      <i id="share-btn" class="material-icons">share</i>
+      </div>
   </div>
 
   <nav id="content-nav" class="nav justify-content-end">
@@ -153,28 +153,24 @@
   <div id="fund" class="container-fluid">
     <div class="container">
         <h2 class="text-center">We are looking for</h2>
-        <h1 class="text-center">${{ startup.raiseAmount }}</h1>
+        <h1 class="text-center">${{ startup.raiseAmount|intcomma }}</h1>
     </div>
   </div>
 
   <div id="article" class="container-fluid">
     <div class="container">
       <h2 class="title">Article</h2>
-      <div class="row">
+      <div class="card-columns">
       {% for a in article %}
-        <div class="col-sm-12 col-md-6">
-          <div class="card">
-            <div class="card-body">
-              <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-              <h5 class="card-title"><a href= "{{ a.link }}">{{a.title}}</a></h5>
-              <p class="card-text">{{a.summary}}</p>
-            </div>
+        <div class="card">
+          <div class="card-body">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <h5 class="card-title"><a href= "{{ a.link }}">{{a.title}}</a></h5>
+            <p class="card-text">{{a.summary}}</p>
           </div>
         </div>
       {% endfor %}
       </div>
-
-      <button type="button" class="mx-auto btn-sm btn more-btn">10+ more</button>
     </div>
   </div>
 
@@ -183,7 +179,7 @@
       <h2 class="title">Feedback</h2>
       <div class="row justify-content-md-center">
         <div class="col-xs-10 col-sm-9">
-          
+
           <form class="inline-form" action="{% url 'create_feedback' %}" method="POST" id="feedback_form">{% csrf_token %}
               <textarea class="autosize" placeholder="Leave your feedback here."></textarea>
               <button type="submit" class="float-right btn btn-sm" value="Summit" >Leave!</button>
@@ -195,7 +191,7 @@
       <div class="col-xs-9">
         <div class="panel-group feedback-card">
           <div class="panel panel-default">
-            <button class="feedback-answer-btn btn btn-sm" data-toggle="collapse" href="#answer1">Hide reply</button>
+            <!-- <button class="feedback-answer-btn btn btn-sm" data-toggle="collapse" href="#answer1">Hide reply</button> -->
 
             <h5 class="panel-title"><i class="material-icons">face</i>&nbsp;{{feedback.user.username}}<span class="feedback-date">{{feedback.created_at}}</span></h5>
             <p class="feedback-content">
@@ -203,18 +199,19 @@
             </p>
           </div>
 
-          <div id="answer1" class="m4panel-collapse collapse show feedback-answer">
+          <!-- <div id="answer1" class="m4panel-collapse collapse show feedback-answer">
             <h5 class="ml-4 panel-title"><i class="material-icons">domain</i>&nbsp;Founder<span class="feedback-date">2019.04.14</span></h5>
             <p class="panel-body">
                 {{feedback.reply}}
             </p>
-          </div>
+          </div> -->
         </div>
       </div>
       {% endfor %}
     </div>
   </div>
 </div>
+<input type="hidden" id="paste-box" />
 {% endblock %}
 
 {% block js_libraries %}
@@ -224,63 +221,75 @@ $("textarea.autosize").on('keydown keyup', function () {
   $(this).height(1).height( $(this).prop('scrollHeight') );
 });
 
-
-
-//menu transition js
 $(document).ready(function(){
   $('body').scrollspy({ target: '#content-nav' });
-  $("#like").click(function(){
-      var originalText = $(this).html();
-      if(originalText == "favorite"){
-        $('#like').text("favorite_border");
-        $.ajax(
-            {
-              url: "{% url 'delete_like' startup.id %}",
-              type: 'DELETE',
-              headers: {'X-CSRFToken': '{{ csrf_token }}'}
-            }
-          );
-      }else{
-          $('#like').text("favorite");
-          $.ajax(
-            {
-              url: "{% url 'create_like' %}",
-              type: 'POST',
-              headers: {'X-CSRFToken': '{{ csrf_token }}'},
-              data: {
-                "user_id" : {{ startup.user.id }} ,
-                "startup_id" : {{startup.id}}
-              },
-              dataType: 'json'
-            }
-          );
-        }
-      });
-      $("#feedback_form").submit(function () {
-        $.ajax({
-          url: $(this).attr('action'),
-            type: "POST",
-            headers: {'X-CSRFToken': '{{ csrf_token }}'},
-            data: {
-              "feedback" : "im here, I will contact you!",
-              "user_id" : {{ startup.user.id }} ,
-              "startup_id" : {{startup.id}}
-            },
-            dataType: 'json'
-        });
-        return false;
+
+  $("#feedback_form").submit(function(e) {
+    $.ajax({
+      url: $(this).attr('action'),
+      type: "POST",
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},
+      data: {
+        "feedback" : e.target.querySelector("textarea").value,
+        "user_id" : {{ startup.user.id }} ,
+        "startup_id" : {{startup.id}}
+      },
+      dataType: 'json'
+    })
+    .done(function(res) {
+      window.location.href = window.location.origin + window.location.pathname + "#feedback";
+      window.location.reload();
+    })
+    .fail(function(e) {
+      console.log(e);
+      window.location.href = window.location.origin + window.location.pathname + "#feedback";
+      window.location.reload();
     });
+    return false;
+  });
 
 
+  $("#like").tooltip('show');
+  $("#like").click(function(event){
+    var requestForLike = (event.target.innerText == 'favorite_border');
+    $.ajax({
+      url: requestForLike ? "{% url 'create_like' %}" : "{% url 'delete_like' startup.id %}",
+      type: requestForLike ? 'POST' : 'DELETE',
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},
+      data: {
+        "user_id" : {{ startup.user.id }},
+        "startup_id" : {{startup.id}}
+      },
+      dataType: 'json',
+      success: function(response) {
+        $("#like_cnt").text(response);
+        $("#like").attr('data-original-title', response).tooltip('show');
+        $(event.target).text(requestForLike ? 'favorite' : 'favorite_border');
+      }
+    });
+  });
+
+
+  $("#share-btn").click(function(_event) {
+
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => {
+         alert("Copied the text: " + window.location.href);
+      })
+      .catch(err => {
+        // This can happen if the user denies clipboard permissions:
+        console.error('Could not copy text: ', err);
+      });
+  });
+
+  //menu transition js
   $(window).scroll(function(){
     var scroll = $(window).scrollTop();
 	  if (scroll > 100) {
 	    $(".navbar").addClass("navbar-scroll");
-        }
-    	  else{
+    }
+	  else{
       $(".navbar").removeClass("navbar-scroll");
-
-
 	  }
 	  if (scroll > 320) {
       $("#content-nav").addClass("sticky-top");
@@ -291,9 +300,7 @@ $(document).ready(function(){
       $("#content-nav").removeClass("sticky-top");
       $("#content-title").addClass("hide");
     }
-
   });
-
 })
 
 </script>

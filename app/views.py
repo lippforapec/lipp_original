@@ -36,30 +36,25 @@ def startup_index(request):
 @login_required
 def startup_show(request, id):
     startup_obj = Startup.objects.filter(id = id).first()
-    is_owner = False # request user is the owner of this startup?
-    if request.user == startup_obj.user:
-        is_owner = True
+    is_owner = request.user == startup_obj.user # request user is the owner of this startup?
     # like data
     # first 는 나중에 지우기
     likes = startup_obj.startup_likes.all()
     request_user_like = likes.filter(user=request.user).first()
-    print(request_user_like)
     like_count = likes.count()
     # article data
     search = Search.objects.filter(category = startup_obj.category).first()
     article = None
     if search != None:
-        article = search.results[:2]
-    #print(Feedback.objects.filter(startup=startup_obj).all().values())
-    #print(startup_obj.startup_feedbacks)
+        article = search.results[:6]
     print(Feedback.objects.filter(startup=startup_obj).all())
-    context = { 'startup':  startup_obj,
+    context = { 'startup': startup_obj,
                 'article': article ,
-                'is_owner':is_owner,
-                'cover_photo_url': getattr(startup_obj.cover_photo, 'url', None),
+                'is_owner': is_owner,
+                # 'cover_photo_url': getattr(startup_obj.cover_photo, 'url', None),
                 'request_user_like': request_user_like,
                 'likes' : like_count,
-                'feedbacks' : Feedback.objects.filter(startup=startup_obj).all()
+                'feedbacks' : Feedback.objects.filter(startup=startup_obj).all().order_by('-created_at')
               }
     return render(request, 'startups/show.html', context)
 
@@ -93,12 +88,10 @@ def startup_edit(request, id):
     if request.user == startup.user:
         sd = model_to_dict(startup)
         if request.method == "POST":
-            form = SimpleStartupForm(request.POST, instance = startup)
+            form = StartupForm(request.POST, instance = startup)
             if form.is_valid():
-                startup = form.save(commit=False)
-                startup.user = request.user
-                startup.save()
-                return redirect('startup_show', id = startup.id)
+                startup = form.save(commit=True)
+                # return redirect('startup_show', id = startup.id)
             else:
                 print(form.errors)
                 return render(request, 'startups/edit.html', {'form': StartupForm(initial=sd), 'id': startup.id, 'errors': form.errors})
@@ -124,10 +117,12 @@ def startup_edit(request, id):
 #    model = Like
 
 def like_delete(request,startup_id):
-    query = Like.objects.filter(user=request.user,startup_id=startup_id)
+    query = Like.objects.filter(user=request.user, startup_id=startup_id)
     query.delete()
-    return HttpResponse("Deleted!")
 
+    response = HttpResponse(Like.objects.filter(startup_id=startup_id).all().count())
+    response.status_code = 200
+    return response
 
 def like_create(request):
     if request.method == 'POST':
@@ -138,27 +133,24 @@ def like_create(request):
             like = form.save(commit=False)
             like.user = request.user
             like.save()
-            return HttpResponse('')
-        response = HttpResponse("<h2>Page Not Found<h2>")
-        response.status_code = 404
-        return response
+    response = HttpResponse(like.startup.startup_likes.all().count())
+    response.status_code = 200
+    return response
 
-# feedbacks 
+# feedbacks
 @login_required
 def feedback_create(request):
     if request.method == "POST":
         form = FeedbackForm(request.POST)
         print(form.data)
         if form.is_valid():
-            print("its's safe")
             f = form.save(commit=False)
             f.user = request.user
             f.save()
-            return HttpResponse('success!')
+            return HttpResponse(status=200)
         response = HttpResponse("<h2>Page Not Found<h2>")
         response.status_code = 404
         return response
-
 
 # Signup view for users
 def register(request):

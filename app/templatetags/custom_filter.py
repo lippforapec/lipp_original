@@ -16,8 +16,14 @@ def get_attr(value, arg):
 @register.filter
 def user_has(value, arg):
     "Has the current user done the `arg` action on the `value` object?"
-    user = globals.user
-    if user.is_authenticated() and hasattr(value, "user_has_%s" % arg):
-        return getattr(value, "user_has_%s" % arg)(user)
-    else:
-        return False
+    return hasattr(value, "%s" % arg)
+
+@register.filter
+def in_visible_fields(value):
+    return not (value in ["Cover photo", "Background", "Solution", "Market",
+                        "Business model", "Future", "Members", "Team desc",
+                        "Pitching video link", "Product description", "Timeline"])
+
+@register.filter
+def summernote_fields(value):
+    return value in ["Background", "Solution", "Market", "Business model", "Future"]

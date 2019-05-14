@@ -23,9 +23,6 @@
       outline: 0;
       padding: 10px 15px;
   }
-  input[type="submit"]:hover {
-      background-color: lightgray;
-  }
   .hide {
       visibility: hidden;
       opacity: 0;
@@ -104,12 +101,12 @@
     <div id="inputs">
       {% csrf_token %}
       <input id="username" type="text" name="username" placeholder="Enter the username"/>
-      <input id="pw" type="password" name="password" placeholder="password" />
+      <input id="pw" type="password" name="password" placeholder="Enter the password" />
       <input type="submit" class="bg-coral" value="Sign In"/>
     </div>
   </form>
   <div class="row justify-content-md-center mt-3 pb-5">
-    <a class="btn btn-primary" href="{% url 'signup' %}" style="width: 250px;margin: 0 auto;" role="button">Sign Up</a>
+    <a class="btn badge-sand" href="{% url 'signup' %}" style="width: 250px;margin: 0 auto;font-weight: 400;" role="button">Sign Up</a>
   </div>
 </div>
 
