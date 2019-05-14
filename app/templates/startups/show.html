@@ -8,7 +8,7 @@
 {% block content %}
 <div id="startup-show">
   <!-- Cover Photo -->
-  <div id="cover" style="background-image: url('{{ cover_photo_url }}')" class="position-relative overflow-hidden text-center bg-light">
+  <div id="cover" class="position-relative overflow-hidden text-center bg-light">
     <h1 class="vertical-middle-header">{{ startup.product_name }}</h1>
     <div class="right-top">
       {% if is_owner %}
@@ -16,15 +16,17 @@
       {% endif %}
     </div>
     <div class="right-bottom">
-    {% if request_user_like%}
-      <i class="material-icons color-coral" id="like">favorite</i>
-    {% else %}
-
-      <i class="material-icons color-coral" id= "like" >favorite_border</i>
-      {% csrf_token %}
+      TODO: bootstrap tooltip
+      <span id="like_cnt">{{ likes }}</span>
+      {% if request_user_like %}
+        <i class="material-icons color-coral" id="like">favorite</i>
+      {% else %}
+        <i class="material-icons color-coral" id= "like" >favorite_border</i>
       {% endif %}
+
+      todo: copy to clipboard
       <i class="material-icons">share</i>
-    </div>
+      </div>
   </div>
 
   <nav id="content-nav" class="nav justify-content-end">
@@ -228,33 +230,24 @@ $("textarea.autosize").on('keydown keyup', function () {
 //menu transition js
 $(document).ready(function(){
   $('body').scrollspy({ target: '#content-nav' });
-  $("#like").click(function(){
-      var originalText = $(this).html();
-      if(originalText == "favorite"){
-        $('#like').text("favorite_border");
-        $.ajax(
-            {
-              url: "{% url 'delete_like' startup.id %}",
-              type: 'DELETE',
-              headers: {'X-CSRFToken': '{{ csrf_token }}'}
-            }
-          );
-      }else{
-          $('#like').text("favorite");
-          $.ajax(
-            {
-              url: "{% url 'create_like' %}",
-              type: 'POST',
-              headers: {'X-CSRFToken': '{{ csrf_token }}'},
-              data: {
-                "user_id" : {{ startup.user.id }} ,
-                "startup_id" : {{startup.id}}
-              },
-              dataType: 'json'
-            }
-          );
-        }
-      });
+
+  $("#like").click(function(event){
+    var requestForLike = (event.target.innerText == 'favorite_border');
+    $.ajax({
+      url: requestForLike ? "{% url 'create_like' %}" : "{% url 'delete_like' startup.id %}",
+      type: requestForLike ? 'POST' : 'DELETE',
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},
+      data: {
+        "user_id" : {{ startup.user.id }},
+        "startup_id" : {{startup.id}}
+      },
+      dataType: 'json',
+      success: function(response) {
+        $("#like_cnt").text(response);
+        $(event.target).text(requestForLike ? 'favorite' : 'favorite_border');
+      }
+    });
+  });
 
   $(window).scroll(function(){
     var scroll = $(window).scrollTop();
