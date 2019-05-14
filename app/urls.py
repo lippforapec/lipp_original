@@ -1,4 +1,6 @@
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -21,5 +23,5 @@ urlpatterns = [
 
     # feedbacks
     path('feedback/create', views.feedback_create, name='create_feedback'),
-    
-]
+
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

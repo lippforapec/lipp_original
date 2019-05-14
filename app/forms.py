@@ -17,7 +17,7 @@ class StartupForm(forms.ModelForm):
         fields = ('name', 'location', 'raiseAmount', 'product_name', 'category',
                 'tags', 'summary', 'background', 'market', 'solution',
                 'business_model', 'future', 'members', 'team_desc', 'timeline',
-                'pitching_video_link', 'product_description')
+                'pitching_video_link', 'product_description', 'cover_photo')
         widgets = {
             'name': forms.TextInput(attrs = {
                     'placeholder': 'Enter the name of your company or team'
