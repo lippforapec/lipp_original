@@ -380,7 +380,7 @@ button.more-btn {
 }
 
 #fund {
-  background-color:rgba(23,9,15,1);
+  background-color:rgba(23,9,15,1) !important;
 }
 #fund h2 {
   color:white;
