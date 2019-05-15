@@ -8,8 +8,18 @@
 <div id="main">
   <div class="container-fluid bg-bg">
     <div class="bg-lipp" style="min-height: 700px">
-      <div class="container">
+      <video autoplay loop id="myVideo">
+        <source src="{% static 'intro.mp4' %}" type="video/mp4"/>
+      </video>
+      <div class="container2">
         <h2 class="lipp-header">Lipp</h2>
+        <p class="text-center">
+          Connecting people, Building the future
+        </p>
+        <div class="col-xs-12 text-center">
+          <a href="{% url 'startup_index' %}" class="mt-3 btn btn-lg bg-coral">Discover startups!</a>
+        </div>
+
       </div>
     </div>
   </div>
@@ -95,4 +105,10 @@
 
 {% block js_libraries %}
 <script src="{% static 'libaries/glide@3.3.0/glide.js' %}"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    document.getElementById('myVideo').play();
+  });
+
+</script>
 {% endblock %}
