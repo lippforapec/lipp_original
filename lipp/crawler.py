@@ -19,16 +19,17 @@ import categories
 
 settings.configure()
 
-#settings.DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'lipp',
-#        'USER': postgres_config.USERNAME,
-#        'PASSWORD': postgres_config.PASSWORD,
-#        'HOST': postgres_config.ENDPOINT,
-#        'PORT': '5432',
-#    }
-#}
+settings.DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'lipp',
+        'USER': postgres_config.USERNAME,
+        'PASSWORD': postgres_config.PASSWORD,
+        'HOST': postgres_config.ENDPOINT,
+        'PORT': '5432',
+    }
+}
+"""
 settings.DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -39,6 +40,7 @@ settings.DATABASES = {
         'PORT': '5432',
     }
 }
+"""
 print(settings.DATABASES )
 
 
