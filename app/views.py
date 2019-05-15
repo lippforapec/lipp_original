@@ -31,9 +31,9 @@ def startup_index(request):
     context = {
         'watching': Startup.objects.filter(startup_likes__user = request.user).all(),
         'trending': Startup.objects.all().values().annotate(total=Count('startup_likes')).order_by('-total')[:6],
-        'financial service': Startup.objects.filter(category=18),
-        'travel & tourisms': Startup.objects.filter(category=45),
-        'commerce & shopping': Startup.objects.filter(category=7),
+        'financial': Startup.objects.filter(category=18),
+        'travel': Startup.objects.filter(category=45),
+        'commerce': Startup.objects.filter(category=7),
     }
     return render(request, 'startups/index.html', context)
 
@@ -171,7 +171,7 @@ def register(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 
-@login_required 
+@login_required
 def get_user_type(request):
     if request.method == 'POST':
         form = UsertypeForm(request.POST)
@@ -183,11 +183,8 @@ def get_user_type(request):
             f.save()
             if usertype == '0':
                 return redirect('startup_new')
-            else: 
+            else:
                 return redirect("startup_index")
     elif request.method == "GET":
         form = UsertypeForm()
         return render(request, 'registration/usertype.html', {'form': form})
-
-
-

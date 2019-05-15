@@ -61,12 +61,64 @@
     </div>
   </div>
 
-  <div id="technology" class="container-fluid">
+  <div id="finance" class="container-fluid">
     <div class="container">
-      <h2 class="title">Techonology</h2>
+      <h2 class="title">Financial Service</h2>
       <div class="m_wrap row ">
         <div class="dx">
-          {% for wc in technology %}
+          {% for wc in financial %}
+            <div class="xc">
+              <div class="card" style="width:300px;display:inline-block;">
+                <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
+                <div class="card-body" style="white-space: normal;line-height: 20px;">
+                  <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
+                  <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>
+                  <div class="tags">
+                    {% for tag in wc.tags %}
+                      <span class="badge badge-pill badge-sand">#{{ tag }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="travel" class="container-fluid">
+    <div class="container">
+      <h2 class="title">Travel & Tourism</h2>
+      <div class="m_wrap row ">
+        <div class="dx">
+          {% for wc in travel %}
+            <div class="xc">
+              <div class="card" style="width:300px;display:inline-block;">
+                <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
+                <div class="card-body" style="white-space: normal;line-height: 20px;">
+                  <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
+                  <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>
+                  <div class="tags">
+                    {% for tag in wc.tags %}
+                      <span class="badge badge-pill badge-sand">#{{ tag }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="commerce" class="container-fluid">
+    <div class="container">
+      <h2 class="title">Commerce & Shopping</h2>
+      <div class="m_wrap row ">
+        <div class="dx">
+          {% for wc in commerce %}
             <div class="xc">
               <div class="card" style="width:300px;display:inline-block;">
                 <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
