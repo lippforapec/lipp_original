@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.views import generic
 from django.forms.models import model_to_dict
+from django.db.models import Count
 
 
-from .forms import StartupForm, CustomUserCreationForm, LikeForm, FeedbackForm
-from .models import Startup, Search, Like, Feedback
+from .forms import StartupForm, CustomUserCreationForm, LikeForm, FeedbackForm, UsertypeForm
+from .models import Startup, Search, Like, Feedback, Usertype
 import app.categories as cate
 
 # for accounts
@@ -26,9 +27,10 @@ def main(request):
 
 @login_required
 def startup_index(request):
+    
     context = {
         'watching': Startup.objects.all()[:3],
-        'trending': Startup.objects.all(),
+        'trending': Startup.objects.all().values().annotate(total=Count('startup_likes')).order_by('-total')[:6],
         'technology': Startup.objects.all(),# filter(category=24),
     }
     return render(request, 'startups/index.html', context)
@@ -59,12 +61,10 @@ def startup_show(request, id):
     return render(request, 'startups/show.html', context)
 
 # form: https://tutorial.djangogirls.org/ko/django_forms/
-# form field 별로 다르게 field 받고 ,form 받은 것을 하나하나 확인해가면서 추가하기
 @login_required
 def startup_new(request):
     if request.method == "POST":
         print(request.method)
-        # post 가 필요한 모든 필드가 안들어와서 valid 하지 않은 상태
         form = StartupForm(request.POST, request.FILES)
         if form.is_valid():
             startup=form.save(commit = False)
@@ -73,7 +73,7 @@ def startup_new(request):
             return redirect('startup_show', id=startup.id)
         return render(request, 'startups/new.html', {'form': form })
     elif request.method == "GET":
-        if hasattr(request.user, 'startup') != None:
+        if hasattr(request.user, 'startup') != False:
             return redirect('startup_edit', id=request.user.startup.id)
         else:
             form = StartupForm()
@@ -163,7 +163,29 @@ def register(request):
                                     )
             # automatic login
             login(request, new_user)
-            return redirect("startup_index")
+            return redirect("usertype")
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+@login_required 
+def get_user_type(request):
+    if request.method == 'POST':
+        form = UsertypeForm(request.POST)
+        if form.is_valid():
+            f = form.save(commit=False)
+            data = request.POST.copy()
+            usertype = data.get('type')
+            f.user = request.user
+            f.save()
+            if usertype == '0':
+                return redirect('startup_new')
+            else: 
+                return redirect("startup_index")
+    elif request.method == "GET":
+        form = UsertypeForm()
+        return render(request, 'registration/usertype.html', {'form': form})
+
+
+
