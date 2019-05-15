@@ -319,7 +319,7 @@ button.more-btn {
   left: 15px;
 }
 
-#startup-show .container-fluid:nth-child(even) {
+#startup-show .container-fluid:nth-child(odd) {
   background-color:rgba(245,237,239,0.6);
 }
 
