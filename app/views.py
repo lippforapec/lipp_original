@@ -31,7 +31,9 @@ def startup_index(request):
     context = {
         'watching': Startup.objects.filter(startup_likes__user = request.user).all(),
         'trending': Startup.objects.all().values().annotate(total=Count('startup_likes')).order_by('-total')[:6],
-        'technology': Startup.objects.all(),# filter(category=24),
+        'financial service': Startup.objects.filter(category=18),
+        'travel & tourisms': Startup.objects.filter(category=45),
+        'commerce & shopping': Startup.objects.filter(category=7),
     }
     return render(request, 'startups/index.html', context)
 

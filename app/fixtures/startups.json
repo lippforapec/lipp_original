@@ -33,7 +33,7 @@
       "user_id": 2,
       "name": "Amazon",
       "product_name": "Amazon Go",
-      "product_description": "This is for people",
+      "product_description": "Amazon Go is a new kind of store featuring the world's most advanced shopping technology. No lines, no checkout.",
       "tags": ["Techonology", "IoT", "Commerce"],
       "category": 7,
       "background": "We though this is the problem.",
@@ -48,11 +48,43 @@
         {"date": "2019.06.01", "desc": "We will contract a store for the test-bed."},
         {"date": "2019.06.10", "desc": "CBT"}
       ],
-      "location": "South Korea",
-      "summary": "This is a blind pitching platform make focus only on the product, not their sex.",
+      "location": "Seattle, United States",
+      "summary": "Amazon Go is a new kind of store featuring the world's most advanced shopping technology. No lines, no checkout. Just grab and go!",
       "members": [{"name": "aria", "position": "founder", "career": "- Worked at kakao<br/>- Worked at kakao2"}, {"name": "Hyerim", "position": "founder", "career": "Worked at kakao"}],
       "team_desc": "best teammates ever!",
       "created_at": "2019-05-09 00:00:00"
+    }
+  },
+  {
+    "model": "app.startup",
+    "id": 2,
+    "fields": {
+      "user_id": 3,
+      "name": "Airbnb",
+      "product_name": "Book rooms with locals rather than hotels",
+      "product_description": "This is a platform operates a global online marketplace and hospitality service accessible via its websites and mobile apps.",
+      "tags": ["Hospitality", "Homestay", "Web", "App"],
+      "category": 45,
+      "background": "<p>Price is an important concern for customer booking travel online.<br/>Hotels leave you disconnected from the city and its culture.<br>No easy way exists to book a room with a local or become a host.</p>",
+      "market": "<p>Market validation is below.</p>",
+      "solution": "<p>A web platform where users can rent out their space to host travelers to SAVE MONEY, MAKE MONEY and SHARE CULTURE.</p>",
+      "business_model": "<p>We take a 10% commission on each transaction.</p>",
+      "future": "<p>We have plan to adopt to the market.</p>",
+      "raiseAmount": 5000000,
+      "timeline": [
+        {"date": "2007.10.01", "desc": "Brian Chesky and Joe Gebbia could not afford the rent for their loft apartment. Chesky and Gebbia came up with the idea of putting an air mattress in their living room and turning it into a bed and breakfast."},
+        {"date": "2008.02.01", "desc": "Nathan Blecharczyk, Chesky's former roommate, joined as the Chief Technology Officer and the third co-founder of the new venture."},
+        {"date": "2008.08.11", "desc": "The site Airbedandbreakfast.com officially launched."},
+        {"date": "2009.03.01", "desc": "The name of the company was shortened to Airbnb.com, and the site's content had expanded from air beds and shared spaces to a variety of properties including entire homes and apartments, private rooms, castles, boats, manors, tree houses, tipis, igloos, private islands and other properties."},
+        {"date": "2012.06.01", "desc": "10,000,000th night is booked, doubling business in the previous five months."},
+        {"date": "2017.01.01", "desc": "Led a $13 million investment in restaurant reservation-booking app, Resy, along with serial entrepreneurs Gary Vaynerchuk, Ben Leventhal and Mike Montero."},
+        {"date": "2018.02.01", "desc": "Announced Airbnb Plus, a collection of homes that have been vetted for quality of services, comfort and design,[62] as well as Beyond by Airbnb, which offers luxury vacation rentals."}
+      ],
+      "location": "San francisco, United States",
+      "summary": "A‌i‌r‌b‌n‌b‌,‌ ‌I‌n‌c‌.‌, headquartered in San Francisco, operates a global online marketplace and hospitality service accessible via its websites and mobile apps. Members can use the service to arrange or offer lodging, primarily homestays, or tourism experiences. The company does not own any of the real estate listings, nor does it host events; it acts as a broker, receiving commissions from every booking",
+      "members": [{"name": "Joe Gebbia", "position": "Founder", "career": "- Holds a patent for his product, Critbuns(R)<br/>- Has dual BFA's in graphic design and industrial design from Rhode Island School of Design(RISD)."}, {"name": "Brian Chesky", "position": "Founder", "career": "- Founder of Brian Chesky Inc, industrial design consultant.<br/>- Has a BFA in industrial design from RISD."}, {"name": "Nathan Blecharcyk", "position": "Founder", "career": "- Created Facebook Apps 'Your neighbors'(76,000 users)<br/>- Computer Science from Harvard Nate.<br/>Worked at Microsoft, OPNET Technologies and Batiq."}],
+      "team_desc": "We have been working together over 10 years. Best teammates.",
+      "created_at": "2019-05-16 00:00:00"
     }
   }
 ]
