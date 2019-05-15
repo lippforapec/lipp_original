@@ -19,6 +19,15 @@ def user_has(value, arg):
     return hasattr(value, "%s" % arg)
 
 @register.filter
+def user_type_check(value, arg):
+    #"Is the current user's type entrepreneur or inverstor?"
+    #if value.type == "0":
+    #    print('Test entrepreneur')
+    #else: 
+    #    print('Test Investor')
+    return hasattr(value, "%s" % arg)
+
+@register.filter
 def in_visible_fields(value):
     return not (value in ["Cover photo", "Background", "Solution", "Market",
                         "Business model", "Future", "Members", "Team desc",

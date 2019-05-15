@@ -75,7 +75,7 @@ def startup_new(request):
             return redirect('startup_show', id=startup.id)
         return render(request, 'startups/new.html', {'form': form })
     elif request.method == "GET":
-        if hasattr(request.user, 'startup') != None:
+        if hasattr(request.user, 'startup') != False:
             return redirect('startup_edit', id=request.user.startup.id)
         else:
             form = StartupForm()
