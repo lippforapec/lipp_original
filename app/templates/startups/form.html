@@ -101,9 +101,9 @@
                 <label class="custom-file-label" for="customFile">Choose file</label>
               </div>
               <small id="emailHelp" class="form-text text-muted">Upload a photo that can express your product the best.</small>
-              <div style="margin-top: 10px" class="hide">
+              <div style="margin-top: 10px">
                 <label for="cover-preview">Preview</label><br>
-                <img id="cover-preview" alt="cover photo" src="#" width="100%">
+                <img id="cover-preview" alt="cover photo" src="/media/{{ form.cover_photo.value }}" width="100%">
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@
             <div class="col-xs-10 col-md-6">
               <div class="form-group">
                 <label for="id_pitching_video_link">Product video link:</label>
-                <input type="text" name="pitching_video_link" placeholder="Insert a video link about the product and pitching." maxlength="500" class="form-control" id="id_pitching_video_link"/>
+                <input type="text" name="pitching_video_link" value="{{ form.pitching_video_link.value }}" placeholder="Insert a video link about the product and pitching." maxlength="500" class="form-control" id="id_pitching_video_link"/>
                 <small class="form-text text-muted"> This video should not contain certain sex.</small>
               </div>
             </div>
@@ -133,7 +133,7 @@
             <div class="col-xs-10 col-md-6">
               <div class="form-group">
                 <label for="id_product_description">Product description:</label>
-                  <textarea name="product_description" cols="40" rows="6" class="form-control" id="id_product_description"></textarea>
+                  <textarea name="product_description" cols="40" rows="6" class="form-control" id="id_product_description">{{ form.product_description.value }}</textarea>
                   <small class="form-text text-muted">You can write about your product.</small>
               </div>
             </div>
@@ -161,6 +161,7 @@
         <h2>Portfolio</h2>
         <div class="form-group">
           <h3>Background</h3>
+          <input type="hidden" name="background" value="{{ form.background.value }}"/>
           <div class="row">
             <div class="col-md-6 col-xs-12">
               <span class="title-desc">What brought you to develop this product? What is the problem?</span>
@@ -184,6 +185,7 @@
 
         <div class="form-group">
           <h3>Solution</h3>
+          <input type="hidden" name="solution" value="{{ form.solution.value }}"/>
           <div class="row">
             <div class="col-md-6 col-xs-12">
               <span class="title-desc">What do you think to solve the problem? What features do your product have?</span>
@@ -207,6 +209,7 @@
 
         <div class="form-group">
           <h3>Market</h3>
+          <input type="hidden" name="market" value="{{ form.market.value }}"/>
           <div class="row">
             <div class="col-md-6 col-xs-12">
               <span class="title-desc">How is the size of market? Describe about competitors.</span>
@@ -230,6 +233,7 @@
 
         <div class="form-group">
           <h3>Business Model</h3>
+          <input type="hidden" name="business_model" value="{{ form.business_model.value }}"/>
           <div class="row">
             <div class="col-md-6 col-xs-12">
               <span class="title-desc">What can you make the money? Do you have a business model?</span>
@@ -253,6 +257,7 @@
 
         <div class="form-group">
           <h3>Future</h3>
+          <input type="hidden" name="future" value="{{ form.future.value }}"/>
           <div class="row">
             <div class="col-md-6 col-xs-12">
               <span class="title-desc">With your product, what do you expect and what is your vision?</span>
@@ -283,7 +288,7 @@
 
         <div class="row justify-content-md-center">
           <div class="col-xs-10 col-md-10">
-            <input type="hidden" name="timeline" id="timeline-input" value="[]"></input>
+            <input type="hidden" name="timeline" id="timeline-input" value="{{ form.timeline.value }}"></input>
             <ul id="tl-showlist" class="list-group mt-2">
             </ul>
 
@@ -336,11 +341,11 @@
 
         <div class="row justify-content-md-center">
           <div class="col-xs-10 col-md-8 col-lg-6">
-            <input type="hidden" name="members" id="member-input" value="[]"></input>
-            <ul id="member-showlist" class="list-group">
+            <input type="hidden" name="members" id="member-input" value="{{ form.members.value }}"></input>
+            <ul id="member-showlist" class="list-group mt-2">
             </ul>
 
-            <div class="form-group member-form mt-5">
+            <div class="form-group member-form mt-3">
               <h3>Member</h3>
               <label for="position">Position</label>
               <div class="d-flex justify-content-start">
@@ -355,7 +360,7 @@
               </div>
               <div class="form-group">
                 <label for="member-name">Name</label>
-                <input type="text" class="form-control" id="member-name" placeholder="Enter the name">
+                <input type="text" class="form-control" id="member-name" placeholder="Enter the name"/>
               </div>
               <div class="form-group">
                 <label for="member-desc">Career History</label>
@@ -374,7 +379,7 @@
           <div class="col-xs-10 col-md-6">
             <div class="form-group">
               <label for="team-desc">Is there anything you want to tell more about your team?</label>
-              <textarea class="form-control" id="member-desc" rows="3"></textarea>
+              <textarea class="form-control" id="team-desc" rows="3" name="team_desc">{{ form.team_desc.value }}</textarea>
               <small id="memberHelp" class="form-text text-muted">Write down about your teamwork, how long have you been working together, why should VCs select this team?</small>
             </div>
           </div>
@@ -393,12 +398,22 @@
 <script src="{% static 'libraries/summernote@0.8.11/summernote.min.js' %}"></script>
 <script src="{% static 'libraries/bootstrap-tagsinput/bootstrap-tagsinput.js'%}"></script>
 <script type="text/javascript">
+  let editorNames = ["background", "market", "solution", "business_model", "future"];
+
   $('body').scrollspy({ target: '#menus' });
+
+  (function setSummernoteDefaultValues() {
+      editorNames.forEach(function(name) {
+        $(`#input-${name}.summernote`).summernote('code', $("#new-form input[name='"+name+"']").val());
+      });
+  })();
 
   $("#new-form").submit(function(event) {
     var formData = $("#new-form").serializeArray();
-    var editorNames = ["background", "market", "solution", "business_model", "future"];
+
+
     editorNames.forEach(function(name) {
+      $("#new-form input[name='"+name+"']").val($(`#input-${name}.summernote`).summernote('code'));
       formData.push({
         name: name,
         value: $(`#input-${name}.summernote`).summernote('code')
@@ -406,6 +421,7 @@
     });
     return true;
   });
+
   /* progressBar */
   var progressBar = $("#progressBar");
   window.addEventListener('scroll', function() {
@@ -416,33 +432,43 @@
 
   /* timeline */
   var tlinput = $("#timeline-input");
+  var tlList = $("#tl-showlist");
+  (function showTimelineInitially() {
+    var tls = JSON.parse(tlinput.val());
+    tls.forEach(function(tl) {
+      tlList.append(`<li class="list-group-item">${tl.date}: ${tl.content}</li>`);
+    });
+  })();
   $(".add-timeline-btn").click(function(event) {
     var newTl = {
-      'date': [ $("#year").val(), $("#month").val(), $("#date").val() ].join("-"),
+      'date': [ $("#year").val(), $("#month").val(), $("#date").val() ].join(". "),
       'content': $("#tl-desc").val()
     };
-    $("#tl-showlist").append(`<li class="list-group-item">${newTl.date}: ${newTl.content}<button type="button" class="tl_delete_btn">X</button></li>`);
+    tlList.append(`<li class="list-group-item">${newTl.date}: ${newTl.content}</li>`);
     var val = JSON.parse(tlinput.val());
     val.push(newTl);
     tlinput.val(JSON.stringify(val));
     $(".timeline-form").find("input, textarea").val('');
   });
 
-  // $(".tl_delete_btn").click(function(event) {
-    // event.target.parent()
-  // });
-
   /* team member */
   var tminput = $("#member-input");
+  var tmList = $("#member-showlist");
+  (function showMemberInitially() {
+    var tls = JSON.parse(tminput.val());
+    tls.forEach(function(member) {
+      tmList.append(`<li class="list-group-item">[${member.position}]<br/>${member.career}</li>`);
+    });
+  })();
   $(".add-member-btn").click(function(event) {
-    var newTl = {
+    var member = {
       'position': $("input[name='member[type]']:checked").val(),
       'name': $("#member-name").val(),
-      'career': $("#member-desc").val()
+      'career': $("#member-desc").val().split("\n").join("<br/>")
     };
-    $("#member-showlist").append(`<li class="list-group-item">${newTl.position}: ${newTl.career}</li>`);
+    tmList.append(`<li class="list-group-item">[${member.position}]<br/>${member.career}</li>`);
     var val = JSON.parse(tminput.val());
-    val.push(newTl);
+    val.push(member);
     tminput.val(JSON.stringify(val));
     $(".member-form").find("#member-name, #member-desc").val('');
     $("input[name='member[type]']").removeAttr("checked");
@@ -469,9 +495,9 @@
 
     $(document).ready(function() {
       $('.summernote').summernote({
-        placeholder: 'Hello stand alone ui',
+        placeholder: 'Write about your product!',
         tabsize: 2,
-        height: 100
+        height: 200
       });
       $("input").addClass("form-control");
     });

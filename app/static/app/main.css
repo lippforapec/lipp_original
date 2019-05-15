@@ -14,6 +14,11 @@ body {
 .navbar-brand {
   font-family: 'Pacifico', cursive;
 }
+#content-title .product_name {
+  color: #DF6E5C;
+  font-weight: 600;
+  font-size: 20px;
+}
 .lipp-header {
   font-family: 'Pacifico', cursive;
   font-size: 200px;
@@ -298,7 +303,12 @@ button.more-btn {
   right: 30px;
   top: 30px;
 }
-
+#startup-show .tooltip-inner {
+  background-color: #df6e5c !important;
+}
+#startup-show .arrow::before {
+  border-top-color: #df6e5c !important;
+}
 #startup-show #cover .material-icons {
   font-size: 40px;
   color: white;
