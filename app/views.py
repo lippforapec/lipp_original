@@ -104,19 +104,6 @@ def startup_edit(request, id):
         response.status_code = 404
         return response
 
-# create and delete user in like
-#class CreateLike(LoginRequiredMixin, generic.CreateView):
-#    model = Like
-#    def form_valid(self, form):
-#        print("jey")
-        #form.instance.user = self.request.user
-        #super(CreateHall, self).form_valid(form)
-#        return
-
-
-#class DeleteLike(generic.DeleteView):
-#    model = Like
-
 def like_delete(request,startup_id):
     query = Like.objects.filter(user=request.user, startup_id=startup_id)
     query.delete()
@@ -128,9 +115,7 @@ def like_delete(request,startup_id):
 def like_create(request):
     if request.method == 'POST':
         form = LikeForm(request.POST)
-        #print(request.cleaned_data)
-        if form.is_valid():
-            print("its's safe")
+        if form.is_valid() and len(Like.objects.filter(startup_id=form.cleaned_data['startup_id'], user=request.user)) == 0:
             like = form.save(commit=False)
             like.user = request.user
             like.save()
