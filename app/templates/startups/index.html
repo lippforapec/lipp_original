@@ -18,7 +18,7 @@
         <div class="card-deck">
           {% for wc in watching %}
             <div class="card">
-              <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
+              <img class="card-img-top" src="{{ wc.cover_photo.url }}" alt="Card image cap"/>
               <div class="card-body">
                 <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
                 <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>
@@ -43,7 +43,7 @@
           {% for wc in trending %}
             <div class="xc">
               <div class="card" style="width:300px;display:inline-block;">
-                <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
+                <img class="card-img-top" src="{{ wc.cover_photo.url }}" alt="Card image cap"/>
                 <div class="card-body" style="white-space: normal;line-height: 20px;">
                   <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
                   <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>
@@ -69,7 +69,7 @@
           {% for wc in financial %}
             <div class="xc">
               <div class="card" style="width:300px;display:inline-block;">
-                <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
+                <img class="card-img-top" src="{{ wc.cover_photo.url }}" alt="Card image cap"/>
                 <div class="card-body" style="white-space: normal;line-height: 20px;">
                   <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
                   <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>

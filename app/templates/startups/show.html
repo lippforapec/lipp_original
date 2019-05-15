@@ -9,7 +9,7 @@
 {% block content %}
 <div id="startup-show">
   <!-- Cover Photo -->
-  <div id="cover" style="background-image: url('{{ cover_photo_url }}')" class="position-relative overflow-hidden text-center bg-light">
+  <div id="cover" style="background-repeat:no-repeat;background-position: bottom 0 right 0;background-image: url('{{ cover_photo_url }}')" class="position-relative overflow-hidden text-center bg-light">
     <h1 class="vertical-middle-header">{{ startup.product_name }}</h1>
     <div class="right-top">
       {% if is_owner %}
@@ -33,7 +33,7 @@
         <img src="{% static 'images/logo.png' %}" class="logo d-inline-block align-top" alt=""/>
         Lipp
       </a>
-      <a class="product_name">{{ startup.product_name }}</a>
+      <a class="product_name" href="#">{{ startup.product_name }}</a>
     </div>
 
     <li class="nav-item">
