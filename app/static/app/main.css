@@ -223,8 +223,20 @@ input.form-control, textarea.form-control, select.form-control {
     font-weight: 400;
     margin-bottom:4px;
 }
+.xc .card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
 .xc .card-text {
   white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 라인수 */
+  -webkit-box-orient: vertical;
 }
 .card-img-top {
   max-height: 200px;
