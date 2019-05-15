@@ -9,6 +9,12 @@ import json
 # import category constants
 import app.categories as cate
 
+USERTYPE = ((0,'Entrepreneur'),(1,'Investor'))
+# user type 
+class Usertype(models.Model): 
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    type = models.PositiveSmallIntegerField(choices=USERTYPE,default=0)
+
 # Like Models
 class Like(models.Model):
     user = models.ForeignKey('auth.User', related_name = "user_likes",on_delete=models.CASCADE)
@@ -39,7 +45,6 @@ class Startup(models.Model):
     members = JSONField(default=list,validators=[validate_members],blank=True,null=True)
     team_desc = models.TextField(default="",blank=True,null=True)
     def save(self, *args, **kwargs):
-        print("====>", self)
         timeline_unordered = [dict(data) for data in self.timeline]
         timeline_ordered = sorted(timeline_unordered, key=operator.itemgetter('date'))
         self.timeline = timeline_ordered

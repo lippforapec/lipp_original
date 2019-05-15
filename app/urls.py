@@ -15,6 +15,7 @@ urlpatterns = [
     # accounts
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup/', views.register, name='signup'),
+    path('accounts/usertype/', views.get_user_type, name='usertype'),
 
     # likes
     path('likes/create', views.like_create, name='create_like'),

@@ -31,9 +31,9 @@
     <div id="content-title" class="hide">
       <a class="navbar-brand" href="/">
         <img src="{% static 'images/logo.png' %}" class="logo d-inline-block align-top" alt=""/>
-        LIPP
+        Lipp
       </a>
-      <a>{{ startup.product_name }}</a>
+      <a class="product_name">{{ startup.product_name }}</a>
     </div>
 
     <li class="nav-item">
@@ -62,10 +62,10 @@
       <h2 class="title">Product</h2>
       <div class="row justify-content-md-center">
         <div class="col-md-6 col-xs-12">
-          <p>{{ startup.summary }}</p>
+          <p>{{ startup.product_description }}</p>
         </div>
         <div class="col-md-6 col-xs-12">
-          <video src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4s" controls width="100%" height="auto" />
+          <video src="{{ startup.pitching_video_url }}" type="video/mp4s" controls width="100%" height="auto" />
         </div>
       </div>
     </div>
@@ -105,7 +105,7 @@
               {% for event in startup.timeline %}
               <li>
                 <div>
-                  <time>{{ event.date }}</time> {{ event.desc }}
+                  <time>{{ event.date }}</time> {{ event.content }}
                 </div>
               </li>
               {% endfor %}
@@ -159,7 +159,8 @@
 
   <div id="article" class="container-fluid">
     <div class="container">
-      <h2 class="title">Article</h2>
+      <h2 class="title">Related Article</h2>
+      <span class="title-desc mb-3" style="display:block;">Below articles are crawled for further understanding of this industry.</span>
       <div class="card-columns">
       {% for a in article %}
         <div class="card">
