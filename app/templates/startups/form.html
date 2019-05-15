@@ -103,7 +103,9 @@
               <small id="emailHelp" class="form-text text-muted">Upload a photo that can express your product the best.</small>
               <div style="margin-top: 10px">
                 <label for="cover-preview">Preview</label><br>
-                <img id="cover-preview" alt="cover photo" src="/media/{{ form.cover_photo.value }}" width="100%">
+                {% if form.cover_photo.value %}
+                  <img id="cover-preview" alt="cover photo" src="/media/{{ form.cover_photo.value }}" width="100%"/>
+                {% endif %}
               </div>
             </div>
           </div>

@@ -10,8 +10,8 @@ import json
 import app.categories as cate
 
 USERTYPE = ((0,'Entrepreneur'),(1,'Investor'))
-# user type 
-class Usertype(models.Model): 
+# user type
+class Usertype(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
     type = models.PositiveSmallIntegerField(choices=USERTYPE,default=0)
 
@@ -27,21 +27,21 @@ class Startup(models.Model):
     cover_photo = models.ImageField(upload_to='uploads/',null=True)
     pitching_video_link = models.URLField(blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(default="",max_length=50)
-    product_name = models.CharField(default="",max_length=50)
+    name = models.CharField(default="",max_length=100)
+    product_name = models.CharField(default="",max_length=100)
     product_description = models.TextField()
     state = models.PositiveSmallIntegerField(default=0)
     category = models.PositiveSmallIntegerField(choices=cate.CATEGORIES,default=0)
     tags = ArrayField(models.CharField(max_length=100),blank=True,null=True)
-    background = models.TextField(default="",blank=True,null=True)
-    market = models.TextField(default="",blank=True,null=True)
-    solution = models.TextField(default="",blank=True,null=True)
-    business_model = models.TextField(default="",blank=True,null=True)
-    future = models.TextField(default="",blank=True,null=True)
+    background = models.TextField(default="",blank=True,max_length=200000,null=True)
+    market = models.TextField(default="",blank=True,max_length=200000, null=True)
+    solution = models.TextField(default="",blank=True,max_length=200000,null=True)
+    business_model = models.TextField(default="",blank=True,max_length=200000,null=True)
+    future = models.TextField(default="",blank=True,max_length=200000,null=True)
     raiseAmount = models.PositiveIntegerField(default=0,blank=True,null=True)
     timeline = JSONField(default=list,validators=[validate_timeline],blank=True,null=True)
     location = models.CharField(default="",max_length=30,blank=True,null=True)
-    summary = models.CharField(default="",max_length=255,blank=True,null=True)
+    summary = models.CharField(default="",max_length=1000,blank=True,null=True)
     members = JSONField(default=list,validators=[validate_members],blank=True,null=True)
     team_desc = models.TextField(default="",blank=True,null=True)
     def save(self, *args, **kwargs):
