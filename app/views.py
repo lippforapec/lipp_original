@@ -61,12 +61,10 @@ def startup_show(request, id):
     return render(request, 'startups/show.html', context)
 
 # form: https://tutorial.djangogirls.org/ko/django_forms/
-# form field 별로 다르게 field 받고 ,form 받은 것을 하나하나 확인해가면서 추가하기
 @login_required
 def startup_new(request):
     if request.method == "POST":
         print(request.method)
-        # post 가 필요한 모든 필드가 안들어와서 valid 하지 않은 상태
         form = StartupForm(request.POST, request.FILES)
         if form.is_valid():
             startup=form.save(commit = False)
