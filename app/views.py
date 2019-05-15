@@ -27,9 +27,9 @@ def main(request):
 
 @login_required
 def startup_index(request):
-    
+    print(Startup.objects.filter(startup_likes__user = request.user).all())
     context = {
-        'watching': Startup.objects.all()[:3],
+        'watching': Startup.objects.filter(startup_likes__user = request.user).all(),
         'trending': Startup.objects.all().values().annotate(total=Count('startup_likes')).order_by('-total')[:6],
         'technology': Startup.objects.all(),# filter(category=24),
     }
