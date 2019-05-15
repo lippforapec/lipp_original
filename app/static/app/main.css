@@ -7,6 +7,9 @@ body {
 .navbar-brand:hover {
   color: #df6e5c !important;
 }
+.card-deck {
+  margin-top: 15px;
+}
 .navbar-brand .logo {
   z-index: -1;
   -webkit-animation: spin 5s infinite linear;
