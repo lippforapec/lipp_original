@@ -1,5 +1,6 @@
 {% extends 'startups/base.html' %}
 {% load static %}
+{% load custom_filter %}
 
 {% block content %}
 <div id="index-cover" class="position-relative overflow-hidden text-center bg-light">
@@ -11,21 +12,24 @@
 </div>
 
 <main role="main">
+
   <div id="watching" class="container-fluid">
     <div class="container">
       <h2 class="title">Watching</h2>
-      <div class="row justify-content-md-center">
-        <div class="card-deck">
+      <div class="m_wrap row">
+        <div class="dx">
           {% for wc in watching %}
-            <div class="card">
-              <img class="card-img-top" src="{{ wc.cover_photo.url }}" alt="Card image cap"/>
-              <div class="card-body">
-                <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
-                <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>
-                <div class="tags">
-                  {% for tag in wc.tags %}
-                    <span class="badge badge-pill badge-sand">#{{ tag }}</span>
-                  {% endfor %}
+            <div class="xc">
+              <div class="card" style="width:300px;display:inline-block;">
+                <img class="card-img-top" src="{{ wc.cover_photo.url }}" alt="Card image cap"/>
+                <div class="card-body" style="white-space: normal;line-height: 20px;">
+                  <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
+                  <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>
+                  <div class="tags">
+                    {% for tag in wc.tags %}
+                      <span class="badge badge-pill badge-sand">#{{ tag }}</span>
+                    {% endfor %}
+                  </div>
                 </div>
               </div>
             </div>
@@ -43,7 +47,7 @@
           {% for wc in trending %}
             <div class="xc">
               <div class="card" style="width:300px;display:inline-block;">
-                <img class="card-img-top" src="{{ wc.cover_photo.url }}" alt="Card image cap"/>
+                <img class="card-img-top" src="media/{% get_coverphoto_url wc %}" alt="Card image cap" />
                 <div class="card-body" style="white-space: normal;line-height: 20px;">
                   <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
                   <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>
@@ -95,7 +99,7 @@
           {% for wc in travel %}
             <div class="xc">
               <div class="card" style="width:300px;display:inline-block;">
-                <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
+                <img class="card-img-top" src="{{ wc.cover_photo.url }}" alt="Card image cap"/>
                 <div class="card-body" style="white-space: normal;line-height: 20px;">
                   <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
                   <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>
@@ -121,7 +125,7 @@
           {% for wc in commerce %}
             <div class="xc">
               <div class="card" style="width:300px;display:inline-block;">
-                <img class="card-img-top" src="{% static 'images/cover.jpeg' %}" alt="Card image cap"/>
+                <img class="card-img-top" src="{{ wc.cover_photo.url }}" alt="Card image cap"/>
                 <div class="card-body" style="white-space: normal;line-height: 20px;">
                   <h5 class="card-title"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.product_name }}</a></h5>
                   <p class="card-text"><a class="startup-link" href="{% url 'startup_show' id=wc.id %}">{{ wc.summary|default:'' }}</a></p>

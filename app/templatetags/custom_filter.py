@@ -13,6 +13,10 @@ def get_attr(value, arg):
     else:
         return None
 
+@register.simple_tag
+def get_coverphoto_url(value):
+    return value['cover_photo']
+
 @register.filter
 def user_has(value, arg):
     "Has the current user done the `arg` action on the `value` object?"
@@ -23,7 +27,7 @@ def user_type_check(value, arg):
     #"Is the current user's type entrepreneur or inverstor?"
     #if value.type == "0":
     #    print('Test entrepreneur')
-    #else: 
+    #else:
     #    print('Test Investor')
     return hasattr(value, "%s" % arg)
 
