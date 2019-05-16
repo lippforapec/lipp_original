@@ -242,7 +242,7 @@ input.form-control, textarea.form-control, select.form-control {
   -webkit-box-orient: vertical;
 }
 .card-img-top {
-  max-height: 200px;
+  max-height: 150px;
 }
 .card .tags {
   margin-bottom: 10px;
@@ -318,7 +318,10 @@ button.more-btn {
   position: absolute;
   left: 15px;
 }
-
+#portfolio h3 {
+  font-weight: 1000;
+  text-decoration: underline;
+}
 #startup-show .container-fluid:nth-child(odd) {
   background-color:rgba(245,237,239,0.6);
 }
