@@ -160,6 +160,9 @@ input.form-control, textarea.form-control, select.form-control {
 #main h3 {
   color: #df6e5c;
 }
+#main p {
+  font-size: 20px;
+}
 #main .title-desc {
   line-height: 30px;
   font-size: 18px;

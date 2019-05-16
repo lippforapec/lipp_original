@@ -44,24 +44,32 @@
   <div class="container-fluid">
     <div style="min-height: 700px">
       <div class="container">
-        <h2>For startups</h2>
-        <h3>Make your own portfolio</h3>
-        <p>
-          Have no idea how to make a portfolio of your product or company?<br/>
-          Here’s Lipp for you! We offer you guidelines to make your project perfect. We suggest you what to include and not include in the project. We offer you fully supported editors, useful links and videos so that anyone can easily can make a good portfolio.
-        </p>
+        <h2 class="mb-4">For startups</h2>
+        <div class="row">
+          <h3>Make your own portfolio</h3>
+          <p>
+            Have no idea how to make a portfolio of your product or company?<br/>
+            Here’s Lipp for you! We offer you guidelines to make your project perfect with helpful links and videos
+            so that anyone can make their own portfolio!.
+            We also offer you fully supported editors, even you can attach photos and videos.
+          </p>
+        </div>
+        <div class="row">
+          <h3>Share to everyone, no more paper or pitching. </h3>
+          <p>
+            You can share your fancy project to everyone with a good look. What is good for sharing is you can get feedbacks from other founders and investors.
+            Also For whom rarely have a chance to get feedbacks from investors or peers, we do offer feedback system so that they can make up for the weak points by receiving feedback before pitching or release.
+          </p>
+        </div>
 
-        <h3>Share to everyone, no more paper or pitching. </h3>
-        <p>
-          You can share your fancy project to everyone with a good look. What is good for sharing is you can get feedbacks from other founders and venture capitalists.
-        </p>
+        <div class="row">
+          <h3>Get a chance to get investments!</h3>
+          <p>
+            You can write an amount of raises you want. It will help you to find more profit venture capitalists.
+          </p>
+        </div>
 
-        <h3>Get a chance to get investments!</h3>
-        <p>
-          You can write an amount of raises you want. It will help you to find more profit venture capitalists.
-        </p>
-
-        <a href="{% url 'startup_new' %}" class="btn btn-lg bg-coral">Let's make a portfolio!</a>
+        <a href="{% url 'startup_new' %}" class="btn btn-lg bg-coral btn-block mt-4">Let's make a portfolio!</a>
       </div>
     </div>
   </div>
@@ -69,12 +77,13 @@
   <div class="container-fluid bg-bg">
     <div style="min-height: 700px">
       <div class="container">
-        <h2>For Venture capitalists</h2>
+        <h2 class="mb-4">For Investors</h2>
         <div class="row mb-4 mt-4">
           <div class="col-xs-10">
             <h3>Portfolios in one place!</h3>
             <p>
               Every portfolios and startups are listed in public. You can watch startups you are interested in by saving it in your list.
+              Keep on your eyes and you can find a good startup. You can also contact to them to schedule a meeting via email!
             </p>
           </div>
 
@@ -82,9 +91,10 @@
 
         <div class="row mb-4">
           <div class="col-xs-10">
-            <h3>Trending startups </h3>
+            <h3>Get information of the industrial on easy way</h3>
             <p>
-              We offer a list of startups that many venture capitalists are interested. _______________
+              We do offer a list of articles related to each product or company so that even investors who do not have enough information about the industrial can get understand more easily.
+              Related articles are crawled automatically based on the category of the product.
             </p>
           </div>
         </div>
@@ -92,11 +102,13 @@
           <div class="col-xs-10">
             <h3>Focus on the product!</h3>
             <p>
-              There are a lot of startups who have good idea to foster but have no experience or opportunities to take investments because of their unfairness of education and information and genders. We offer guidelines so that they would present their products and companies well that you can find startups to invest.
+              There are a lot of startups who have good idea to foster but have no experience or opportunities to take investments because of their unfairness of education and information and genders.
+              We do offer guidelines so that they would present their products and companies well that you can find startups to invest. We do list features of product at first.
+              We do not offer any information that can cause discrimination such as name and gender.
             </p>
           </div>
         </div>
-        <a class="btn btn-lg bg-coral" href="{% url 'startup_index' %}">Let's discover startups!</a>
+        <a class="btn btn-lg bg-coral btn-block mt-4" href="{% url 'startup_index' %}">Let's discover startups!</a>
       </div>
     </div>
   </div>
